@@ -17,6 +17,10 @@ let transporter = null;
 
 // Initialize email transporter
 function initializeEmail() {
+  console.log('[Email] Initializing email service...');
+  console.log('[Email] Gmail user:', process.env.GMAIL_USER ? 'SET' : 'NOT_SET');
+  console.log('[Email] Gmail password:', process.env.GMAIL_APP_PASSWORD ? 'SET' : 'NOT_SET');
+  
   if (!process.env.GMAIL_APP_PASSWORD) {
     console.warn('[Email] Gmail App Password not configured. Email notifications disabled.');
     return false;

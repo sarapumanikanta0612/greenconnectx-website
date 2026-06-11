@@ -13,7 +13,8 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 // Initialize email service
-emailService.initializeEmail();
+const emailInitResult = emailService.initializeEmail();
+console.log('[Server] Email service initialization result:', emailInitResult);
 
 // Middleware
 app.use(cors());
@@ -65,6 +66,7 @@ app.get('/api/health', async (req, res) => {
     environment: process.env.NODE_ENV || 'development',
     databaseUrl: process.env.DATABASE_URL ? 'SET' : 'NOT_SET',
     gmail: process.env.GMAIL_USER ? 'SET' : 'NOT_SET',
+    gmailPassword: process.env.GMAIL_APP_PASSWORD ? 'SET' : 'NOT_SET',
     databaseUrlLength: process.env.DATABASE_URL ? process.env.DATABASE_URL.length : 0,
     databaseUrlStart: process.env.DATABASE_URL ? process.env.DATABASE_URL.substring(0, 30) + '...' : 'NOT_SET'
   };
