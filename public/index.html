@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GreenConnectX - Empowering Communities to Build a Cleaner Tomorrow</title>
+  <meta name="description" content="GreenConnectX is an upcoming platform connecting citizens, communities, and local authorities to report civic issues, join cleanup drives, and build sustainable environments.">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css?v=2.3">
+</head>
+<body>
+
+  <!-- Background Grid & Glowing Orbs -->
+  <div class="background-grid">
+    <video class="bg-video" autoplay loop muted playsinline preload="auto">
+      <source src="https://player.vimeo.com/external/403213054.sd.mp4?s=8c303102a0a2df324151755a5bf95a494d4d8ef5&profile_id=139&oauth2_token_id=57447761" type="video/mp4">
+      <!-- Fallback for when video doesn't load -->
+    </video>
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <img src="logo.png" alt="GreenConnectX Logo" class="logo-icon" style="width:48px; height:48px; border-radius:8px; object-fit:cover; filter: drop-shadow(0 0 6px var(--primary-glow));">
+        GreenConnectX
+      </a>
+      
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#why">Why Us</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#sneak-peek">Sneak Peek</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#waitlist" class="btn btn-primary">Join Waitlist</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content animate-on-scroll appear">
+        <div class="coming-soon-badge">
+          <span>🚀 Coming Soon</span>
+        </div>
+        <h1 class="hero-headline">Empowering Communities to Build a Cleaner Tomorrow</h1>
+        <p class="hero-subheadline">
+          GreenConnectX is an upcoming platform that helps citizens report civic issues, participate in cleanup drives, collaborate with communities, and promote environmental sustainability.
+        </p>
+        <div class="hero-actions">
+          <a href="#waitlist" class="btn btn-primary">Notify Me at Launch</a>
+          <a href="#sneak-peek" class="btn btn-secondary">Explore Features</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-value">5+</span>
+            <span class="stat-label">Core Modules</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">24/7</span>
+            <span class="stat-label">Active Monitoring</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">100%</span>
+            <span class="stat-label">Community Driven</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Visual (Futuristic Glassmorphism Mockup) -->
+      <div class="hero-visual animate-on-scroll appear">
+        <div class="hero-dashboard-mockup">
+          <div class="mock-window">
+            <div class="mock-window-header">
+              <span class="mock-dot-red"></span>
+              <span class="mock-dot-yellow"></span>
+              <span class="mock-dot-green"></span>
+            </div>
+            <div class="mock-window-body">
+              <!-- Mock Dashboard Main Area -->
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <div style="height:35px; background:rgba(255,255,255,0.03); border-radius:6px; border:1px solid rgba(255,255,255,0.04); display:flex; align-items:center; padding-left:10px;">
+                  <span style="font-size:0.75rem; color:var(--text-muted);">🔍 Search reported issues...</span>
+                </div>
+                <div style="flex-grow:1; background:rgba(16,185,129,0.02); border-radius:8px; border:1px dashed rgba(16,185,129,0.15); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;">
+                  <!-- Mock mini map graphic -->
+                  <svg style="width:50px; height:50px; color:var(--primary); opacity:0.6;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  </svg>
+                  <span style="font-size:0.7rem; color:var(--text-muted);">Civic Map Live Feed</span>
+                </div>
+              </div>
+              <!-- Mock Dashboard Side Panel -->
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); border-radius:8px; padding:8px;">
+                  <h6 style="font-size:0.65rem; color:var(--primary); text-transform:uppercase; margin-bottom:4px;">Eco Score</h6>
+                  <p style="font-size:1.1rem; font-weight:800; color:#fff;">945 <span style="font-size:0.6rem; color:var(--text-muted); font-weight:400;">PTS</span></p>
+                </div>
+                <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); border-radius:8px; padding:8px; flex-grow:1; display:flex; flex-direction:column; gap:6px;">
+                  <h6 style="font-size:0.65rem; color:var(--text-muted); text-transform:uppercase;">Resolutions</h6>
+                  <div style="height:4px; background:rgba(255,255,255,0.05); border-radius:2px;"><div style="width:75%; height:100%; background:var(--primary); border-radius:2px;"></div></div>
+                  <p style="font-size:0.6rem; color:var(--text-muted);">15/20 Completed</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Floating Mockup Cards -->
+          <div class="floating-card floating-card-1">
+            <div class="floating-card-icon">
+              <svg style="width:16px; height:16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </div>
+            <div class="floating-card-details">
+              <h5>Garbage Reported</h5>
+              <p>Sector 4 • 2 mins ago</p>
+            </div>
+          </div>
+
+          <div class="floating-card floating-card-2">
+            <div class="floating-card-icon" style="color:var(--secondary);">
+              <svg style="width:16px; height:16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <div class="floating-card-details">
+              <h5>Pothole Located</h5>
+              <p>GPS Auto-tagged</p>
+            </div>
+          </div>
+
+          <div class="floating-card floating-card-3">
+            <span style="font-size:0.75rem; font-weight:700; color:var(--primary-hover);">🎉 +50 EcoPoints Awarded</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-box glass-card animate-on-scroll">
+        <span class="section-label">About GreenConnectX</span>
+        <h2 class="section-title">Bridging Citizens, Communities, and Authorities</h2>
+        <p class="about-text">
+          GreenConnectX is being developed to connect citizens, communities, and local authorities through a single platform focused on environmental responsibility and civic participation. By leveraging modern technology, we enable collaborative problem-solving to improve neighborhoods and promote ecological sustainability.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Planned Features Grid -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-intro animate-on-scroll">
+        <span class="section-label">Features Overview</span>
+        <h2 class="section-title">What We Are Building</h2>
+        <p>A comprehensive suite of tools built for active community engagement, issue reporting, and sustainability metrics.</p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card glass-card animate-on-scroll">
+          <div class="feature-icon-box">
+            <svg style="width:24px; height:24px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <h3>Smart Issue Reporting</h3>
+          <p>Report garbage dumps, potholes, water leaks, drainage issues, and environmental concerns with photos and location details.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card glass-card animate-on-scroll">
+          <div class="feature-icon-box" style="color:var(--secondary); border-color:rgba(6,182,212,0.15); background:rgba(6,182,212,0.08);">
+            <svg style="width:24px; height:24px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+            </svg>
+          </div>
+          <h3>Interactive Community Map</h3>
+          <p>View reported issues on a live map, track their lifecycle, and discover environmental hotspots nearby.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card glass-card animate-on-scroll">
+          <div class="feature-icon-box">
+            <svg style="width:24px; height:24px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+            </svg>
+          </div>
+          <h3>Community Engagement</h3>
+          <p>Discuss reported issues, validate items reported by neighbors, and collaborate on localized municipal solutions.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card glass-card animate-on-scroll">
+          <div class="feature-icon-box" style="color:var(--secondary); border-color:rgba(6,182,212,0.15); background:rgba(6,182,212,0.08);">
+            <svg style="width:24px; height:24px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+          </div>
+          <h3>Cleanup Drives</h3>
+          <p>Create, organize, and participate in local environmental cleanup and waste reduction drives with your neighbors.</p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card glass-card animate-on-scroll">
+          <div class="feature-icon-box">
+            <svg style="width:24px; height:24px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 4a2 2 0 00-2-2m-2 2a2 2 0 00-2-2m2 2v4a2 2 0 01-2 2h-2m-2-4h.01M9 16h.01" />
+            </svg>
+          </div>
+          <h3>Community Feed</h3>
+          <p>Share posts, track neighborhood ecological milestones, and announce environmental updates to your community.</p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card glass-card animate-on-scroll">
+          <div class="feature-icon-box" style="color:var(--secondary); border-color:rgba(6,182,212,0.15); background:rgba(6,182,212,0.08);">
+            <svg style="width:24px; height:24px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5a2 2 0 10-2 2h2zm0 0L4 13m8-5l8 5M4 13v7a2 2 0 002 2h12a2 2 0 002-2v-7M4 13h16" />
+            </svg>
+          </div>
+          <h3>Rewards & Recognition</h3>
+          <p>Earn badges, EcoPoints, and local leaderboard ranks for reporting issues, validating entries, and joining drives.</p>
+        </div>
+
+        <!-- Feature 7 -->
+        <div class="feature-card glass-card animate-on-scroll">
+          <div class="feature-icon-box">
+            <svg style="width:24px; height:24px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+            </svg>
+          </div>
+          <h3>Real-Time Notifications</h3>
+          <p>Stay informed with instant updates on the status of your reported issues and invitations to nearby community events.</p>
+        </div>
+
+        <!-- Feature 8 -->
+        <div class="feature-card glass-card animate-on-scroll">
+          <div class="feature-icon-box" style="color:var(--secondary); border-color:rgba(6,182,212,0.15); background:rgba(6,182,212,0.08);">
+            <svg style="width:24px; height:24px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+          <h3>Analytics Dashboard</h3>
+          <p>Gain deep analytical insights into municipal issue trends, recycling efficiency, and local community impact scores.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="workflow" id="how-it-works">
+    <div class="container">
+      <div class="section-intro animate-on-scroll">
+        <span class="section-label">Workflow Timeline</span>
+        <h2 class="section-title">How GreenConnectX Will Work</h2>
+        <p>From finding an issue to watching it get resolved — a structured, collaborative pipeline.</p>
+      </div>
+
+      <div class="workflow-container">
+        <div class="workflow-line"></div>
+
+        <!-- Step 1 -->
+        <div class="workflow-card animate-on-scroll">
+          <div class="workflow-number">1</div>
+          <svg class="workflow-card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+          </svg>
+          <h4>Capture an Issue</h4>
+          <p>Notice garbage accumulation, a dangerous pothole, or water leakage in your neighborhood.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="workflow-card animate-on-scroll">
+          <div class="workflow-number">2</div>
+          <svg class="workflow-card-icon" style="color:var(--secondary);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <h4>Add Details & Location</h4>
+          <p>Snap a photo and let the app auto-tag the precise GPS coordinates and add brief notes.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="workflow-card animate-on-scroll">
+          <div class="workflow-number">3</div>
+          <svg class="workflow-card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+          </svg>
+          <h4>Submit Report</h4>
+          <p>Submit the ticket in seconds. It gets published immediately to the public community map.</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="workflow-card animate-on-scroll">
+          <div class="workflow-number">4</div>
+          <svg class="workflow-card-icon" style="color:var(--secondary);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <h4>Community Validation</h4>
+          <p>Local residents verify the report, upvote its urgency, and comment with extra context.</p>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="workflow-card animate-on-scroll">
+          <div class="workflow-number">5</div>
+          <svg class="workflow-card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+          </svg>
+          <h4>Track Resolution</h4>
+          <p>Watch updates as municipal teams or volunteer cleanups take action to resolve the issue.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why GreenConnectX & Before/After Section -->
+  <section class="why-section" id="why">
+    <div class="container why-grid">
+      <div class="why-content animate-on-scroll">
+        <span class="section-label">Why GreenConnectX?</span>
+        <h2 class="section-title">The Power of Connected Citizens</h2>
+        <ul class="why-bullets">
+          <li class="why-bullet-item">
+            <div class="why-bullet-check">
+              <svg fill="currentColor" viewBox="0 0 12 12"><path d="M9.707 3.293a1 1 0 00-1.414 0L5 6.586 3.707 5.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4a1 1 0 000-1.414z"/></svg>
+            </div>
+            <div class="why-bullet-text">
+              <h4>Encourages civic responsibility</h4>
+              <p>Transforms passive complaining into constructive actions by allowing citizens to submit direct tickets.</p>
+            </div>
+          </li>
+          <li class="why-bullet-item">
+            <div class="why-bullet-check">
+              <svg fill="currentColor" viewBox="0 0 12 12"><path d="M9.707 3.293a1 1 0 00-1.414 0L5 6.586 3.707 5.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4a1 1 0 000-1.414z"/></svg>
+            </div>
+            <div class="why-bullet-text">
+              <h4>Promotes environmental awareness</h4>
+              <p>Highlights waste accumulation and ecological hot spots to build a more conscious populace.</p>
+            </div>
+          </li>
+          <li class="why-bullet-item">
+            <div class="why-bullet-check">
+              <svg fill="currentColor" viewBox="0 0 12 12"><path d="M9.707 3.293a1 1 0 00-1.414 0L5 6.586 3.707 5.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4a1 1 0 000-1.414z"/></svg>
+            </div>
+            <div class="why-bullet-text">
+              <h4>Strengthens community collaboration</h4>
+              <p>Enables neighbors to organize drives, join forces, and vote on pressing neighborhood needs.</p>
+            </div>
+          </li>
+          <li class="why-bullet-item">
+            <div class="why-bullet-check">
+              <svg fill="currentColor" viewBox="0 0 12 12"><path d="M9.707 3.293a1 1 0 00-1.414 0L5 6.586 3.707 5.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4a1 1 0 000-1.414z"/></svg>
+            </div>
+            <div class="why-bullet-text">
+              <h4>Simplifies issue reporting</h4>
+              <p>Eliminates complex bureaucratic queues with rapid, photo-backed geo-located submissions.</p>
+            </div>
+          </li>
+          <li class="why-bullet-item">
+            <div class="why-bullet-check">
+              <svg fill="currentColor" viewBox="0 0 12 12"><path d="M9.707 3.293a1 1 0 00-1.414 0L5 6.586 3.707 5.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4a1 1 0 000-1.414z"/></svg>
+            </div>
+            <div class="why-bullet-text">
+              <h4>Supports sustainable development</h4>
+              <p>Drives environmental cleanup and data-backed resources management to make smart cities a reality.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Before/After Interactive Comparison Widget -->
+      <div class="why-comparison animate-on-scroll" id="why-comparison">
+        <div class="comparison-before">
+          <span class="comparison-tag">Without GreenConnectX</span>
+          <h3 class="comparison-title">Traditional Civic Complaints</h3>
+          <ul class="comparison-list">
+            <li class="comparison-list-item"><span class="comparison-list-item-x">✕</span> Reports lost in bureaucratic filing cabinets</li>
+            <li class="comparison-list-item"><span class="comparison-list-item-x">✕</span> Zero transparency on resolution progress</li>
+            <li class="comparison-list-item"><span class="comparison-list-item-x">✕</span> No way to rally neighbors to clean up together</li>
+            <li class="comparison-list-item"><span class="comparison-list-item-x">✕</span> Municipal decisions made without localized data</li>
+          </ul>
+        </div>
+        <div class="comparison-after">
+          <span class="comparison-tag">With GreenConnectX</span>
+          <h3 class="comparison-title">Connected, Smart Communities</h3>
+          <ul class="comparison-list">
+            <li class="comparison-list-item"><span class="comparison-list-item-check">✓</span> 1-Click reports instantly visible on city-wide map</li>
+            <li class="comparison-list-item"><span class="comparison-list-item-check">✓</span> Real-time push notifications of resolution status</li>
+            <li class="comparison-list-item"><span class="comparison-list-item-check">✓</span> Launch volunteer cleanup drives with a dashboard</li>
+            <li class="comparison-list-item"><span class="comparison-list-item-check">✓</span> Data dashboards identify problem zones immediately</li>
+          </ul>
+        </div>
+        <button class="comparison-toggle-btn" id="comparison-toggle">Show With GreenConnectX</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Development Roadmap -->
+  <section class="roadmap" id="roadmap">
+    <div class="container">
+      <div class="section-intro animate-on-scroll">
+        <span class="section-label">Milestones</span>
+        <h2 class="section-title">Development Roadmap</h2>
+        <p>Track our progress as we advance from conceptual designs to deployment and public launch.</p>
+      </div>
+
+      <div class="roadmap-timeline">
+        <!-- Phase 1 -->
+        <div class="roadmap-item completed animate-on-scroll">
+          <div class="roadmap-marker">✓</div>
+          <div class="roadmap-details">
+            <h4>Research & Planning <span class="roadmap-status-badge">Completed</span></h4>
+            <p>Gathered community feedback on civic bottlenecks, analyzed existing reporting workflows, and defined platform milestones.</p>
+          </div>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="roadmap-item completed animate-on-scroll">
+          <div class="roadmap-marker">✓</div>
+          <div class="roadmap-details">
+            <h4>System Design <span class="roadmap-status-badge">Completed</span></h4>
+            <p>Created architectural blueprints, wireframes, and mapped geo-location database models for high-scale reporting.</p>
+          </div>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="roadmap-item in-progress animate-on-scroll">
+          <div class="roadmap-marker">🚧</div>
+          <div class="roadmap-details">
+            <h4>Application Development <span class="roadmap-status-badge">In Progress</span></h4>
+            <p>Writing frontend components, setting up the maps interface, and assembling the community activities feed.</p>
+          </div>
+        </div>
+
+        <!-- Phase 4 -->
+        <div class="roadmap-item upcoming animate-on-scroll">
+          <div class="roadmap-marker">🚧</div>
+          <div class="roadmap-details">
+            <h4>Testing & Optimization <span class="roadmap-status-badge">Upcoming</span></h4>
+            <p>Running beta audits in select neighborhoods, stress-testing notifications pipelines, and finalizing badge gamification modules.</p>
+          </div>
+        </div>
+
+        <!-- Phase 5 -->
+        <div class="roadmap-item upcoming animate-on-scroll">
+          <div class="roadmap-marker">🔜</div>
+          <div class="roadmap-details">
+            <h4>Public Launch <span class="roadmap-status-badge">Future</span></h4>
+            <p>Deploying iOS, Android, and web applications globally. Onboarding cities, NGOs, and municipal authorities.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sneak Peek Platform Showcase -->
+  <section class="showcase" id="sneak-peek">
+    <div class="container">
+      <div class="section-intro animate-on-scroll" style="margin-bottom: 20px;">
+        <span class="section-label">Sneak Peek</span>
+        <h2 class="section-title" style="margin-bottom:8px;">Experience the Dashboard Interface</h2>
+        <p>Get a first look at the interactive screens currently in active development.</p>
+        <div class="concept-label">
+          <span>⚠️ Concept Screens – Features Under Development</span>
+        </div>
+      </div>
+
+      <!-- Dashboard Mockup Wrapper -->
+      <div class="showcase-wrapper animate-on-scroll">
+        <!-- Sidebar Navigation -->
+        <aside class="showcase-sidebar">
+          <h4 class="sidebar-title">GreenConnectX Menu</h4>
+          <ul class="showcase-tabs">
+            <li>
+              <button class="tab-btn active" data-target="screen-home">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                Home Screen
+              </button>
+            </li>
+            <li>
+              <button class="tab-btn" data-target="screen-report">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Issue Reporting
+              </button>
+            </li>
+            <li>
+              <button class="tab-btn" data-target="screen-map">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                Interactive Map
+              </button>
+            </li>
+            <li>
+              <button class="tab-btn" data-target="screen-feed">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 4a2 2 0 00-2-2m-2 2a2 2 0 00-2-2m2 2v4a2 2 0 01-2 2h-2m-2-4h.01M9 16h.01" />
+                </svg>
+                Community Feed
+              </button>
+            </li>
+            <li>
+              <button class="tab-btn" data-target="screen-drives">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                Cleanup Drives
+              </button>
+            </li>
+            <li>
+              <button class="tab-btn" data-target="screen-leaderboard">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                </svg>
+                Leaderboard
+              </button>
+            </li>
+            <li>
+              <button class="tab-btn" data-target="screen-analytics">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+                </svg>
+                Analytics
+              </button>
+            </li>
+          </ul>
+        </aside>
+
+        <!-- Dynamic Screen Viewport -->
+        <main class="showcase-viewport">
+          
+          <!-- Screen 1: Home Dashboard -->
+          <div class="mockup-screen active" id="screen-home">
+            <div class="screen-header">
+              <div class="screen-title-area">
+                <h4>Dashboard Home</h4>
+                <p>Welcome back! Here is a summary of your community impact.</p>
+              </div>
+            </div>
+            <div class="screen-body">
+              <div class="dashboard-grid">
+                <div class="stat-widget">
+                  <div class="widget-icon">⚡</div>
+                  <div class="widget-details">
+                    <h5>EcoScore Rank</h5>
+                    <p>#12 (Top 5%)</p>
+                  </div>
+                </div>
+                <div class="stat-widget">
+                  <div class="widget-icon">🌿</div>
+                  <div class="widget-details">
+                    <h5>EcoPoints</h5>
+                    <p>2,450 PTS</p>
+                  </div>
+                </div>
+                <div class="stat-widget">
+                  <div class="widget-icon">✓</div>
+                  <div class="widget-details">
+                    <h5>Issues Resolved</h5>
+                    <p>8 reported</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dash-row">
+                <div class="dash-box">
+                  <h5>Recent Civic Updates</h5>
+                  <div class="dash-list">
+                    <div class="dash-list-item">
+                      <p>Pothole Sector 4 - Fixed by volunteers</p>
+                      <span class="status" style="background:rgba(16,185,129,0.1); color:var(--primary);">Resolved</span>
+                    </div>
+                    <div class="dash-list-item">
+                      <p>Water leak on Main St - Dispatched</p>
+                      <span class="status" style="background:rgba(59,130,246,0.1); color:#3b82f6;">In Progress</span>
+                    </div>
+                    <div class="dash-list-item">
+                      <p>Illegal dump at Park Lane - Validation pending</p>
+                      <span class="status" style="background:rgba(245,158,11,0.1); color:#f59e0b;">Pending</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="dash-box">
+                  <h5>Quick actions</h5>
+                  <p style="font-size:0.8rem; margin-bottom:12px; color:var(--text-muted);">Quickly report an issue or find cleanup drives nearby.</p>
+                  <button class="btn btn-primary" style="font-size:0.8rem; padding:8px 16px; width:100%;" onclick="switchMockupTab('screen-report')">+ File New Report</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Screen 2: Issue Reporting Screen -->
+          <div class="mockup-screen" id="screen-report">
+            <div class="screen-header">
+              <div class="screen-title-area">
+                <h4>Report a Civic/Environmental Issue</h4>
+                <p>Provide details to help your community and local authorities respond.</p>
+              </div>
+            </div>
+            <div class="screen-body">
+              <form class="report-form" id="mock-report-form" onsubmit="handleMockSubmit(event)">
+                <div class="form-group">
+                  <label for="report-title">Issue Title</label>
+                  <input type="text" id="report-title" placeholder="e.g. Overflowing garbage bin" required>
+                </div>
+                <div class="form-group">
+                  <label for="report-category">Category</label>
+                  <select id="report-category" required>
+                    <option value="Garbage accumulation">Garbage accumulation</option>
+                    <option value="Pothole">Potholes</option>
+                    <option value="Water leakage">Water leakage</option>
+                    <option value="Drainage blockage">Drainage blockage</option>
+                    <option value="Damaged streetlight">Damaged streetlight</option>
+                  </select>
+                </div>
+                <div class="form-full drag-drop-area" id="mock-file-upload" onclick="document.getElementById('report-image').click()">
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span id="upload-label" style="font-size:0.85rem; font-weight:600; color:var(--text-muted);">Click to upload photos</span>
+                  <input type="file" id="report-image" accept="image/*" style="display:none;" onchange="handleFileSelect(this)">
+                </div>
+                <div class="form-full form-group">
+                  <label for="report-location">Location Coordinate</label>
+                  <div class="gps-field">
+                    <input type="text" id="report-location" placeholder="e.g. 40.7128° N, 74.0060° W" required readonly>
+                    <button type="button" class="btn-gps" id="btn-mock-gps">
+                      <span>📍 Auto Tag GPS</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="form-full form-group">
+                  <label for="report-desc">Description</label>
+                  <textarea id="report-desc" rows="3" placeholder="Provide extra details to help validate and solve the problem..." required></textarea>
+                </div>
+                <div class="form-full" style="display:flex; justify-content:flex-end;">
+                  <button type="submit" class="btn btn-primary" style="padding:10px 20px; font-size:0.85rem;">Submit Concept Report</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Screen 3: Interactive Map -->
+          <div class="mockup-screen" id="screen-map">
+            <div class="screen-header">
+              <div class="screen-title-area">
+                <h4>Interactive City Map</h4>
+                <p>Click coordinates pins to view active reported items in Sector 4.</p>
+              </div>
+            </div>
+            <div class="screen-body" style="position:relative;">
+              <div class="map-canvas">
+                <!-- SVG styled map graphic layout -->
+                <svg class="map-placeholder-svg" viewBox="0 0 800 400">
+                  <path d="M 0 100 Q 200 80 400 120 T 800 100" />
+                  <path d="M 100 0 Q 150 200 120 400" />
+                  <path d="M 0 300 Q 300 250 800 320" />
+                  <path d="M 500 0 Q 450 150 520 400" />
+                  <circle cx="200" cy="150" r="120" stroke="rgba(255,255,255,0.01)" />
+                  <circle cx="550" cy="220" r="90" stroke="rgba(255,255,255,0.01)" />
+                </svg>
+
+                <!-- Interactive map pins -->
+                <div class="map-pin pin-1" data-id="1"></div>
+                <div class="map-pin pin-2" data-id="2"></div>
+                <div class="map-pin pin-3" data-id="3"></div>
+                <div class="map-pin pin-4" data-id="4"></div>
+
+                <!-- Info card popup -->
+                <div class="map-info-card" id="map-popup">
+                  <div class="map-info-left">
+                    <h5 id="popup-title">Issue Title</h5>
+                    <p id="popup-desc">Report details go here...</p>
+                    <span class="map-info-status" id="popup-status">Status</span>
+                  </div>
+                  <div class="map-info-right">
+                    <span id="popup-votes" style="font-weight:700; font-size:0.85rem;">0 Upvotes</span>
+                    <button id="btn-popup-vote">👍 Upvote</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Screen 4: Community Feed -->
+          <div class="mockup-screen" id="screen-feed">
+            <div class="screen-header">
+              <div class="screen-title-area">
+                <h4>Community Feed</h4>
+                <p>Stay updated with ecological achievements and news in your neighborhood.</p>
+              </div>
+            </div>
+            <div class="screen-body">
+              <div class="feed-posts" id="feed-container">
+                <!-- Post 1 -->
+                <div class="feed-post-card">
+                  <div class="post-author">
+                    <div class="author-avatar">LM</div>
+                    <div class="author-info">
+                      <h6>Lucas Martinez</h6>
+                      <span>2 hours ago • Sector 4</span>
+                    </div>
+                  </div>
+                  <div class="post-content">
+                    <p>Awesome work today! The Sector 4 Volunteer team completely cleaned up the illegal dump near the community center. We sorted 15 bags of recyclable plastic and 5 bags of organic waste.</p>
+                    <div class="post-image-placeholder">
+                      <span>📷 Sector-4-Cleanup.jpg (Simulated)</span>
+                    </div>
+                  </div>
+                  <div class="post-actions">
+                    <button class="post-action-btn active">👍 Upvoted (42)</button>
+                    <button class="post-action-btn">💬 Comment (12)</button>
+                  </div>
+                </div>
+
+                <!-- Post 2 -->
+                <div class="feed-post-card">
+                  <div class="post-author">
+                    <div class="author-avatar">JD</div>
+                    <div class="author-info">
+                      <h6>Jane Doe</h6>
+                      <span>1 day ago • Sector 1</span>
+                    </div>
+                  </div>
+                  <div class="post-content">
+                    <p>Pothole reported on 5th Avenue has been successfully patched by municipal staff. Huge thanks to everyone who upvoted my report. The system works!</p>
+                  </div>
+                  <div class="post-actions">
+                    <button class="post-action-btn">👍 Upvote (28)</button>
+                    <button class="post-action-btn">💬 Comment (5)</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Screen 5: Cleanup Drives -->
+          <div class="mockup-screen" id="screen-drives">
+            <div class="screen-header">
+              <div class="screen-title-area">
+                <h4>Nearby Cleanup Drives</h4>
+                <p>Join organized environmental events happening in your community.</p>
+              </div>
+            </div>
+            <div class="screen-body">
+              <div class="drive-cards">
+                <!-- Card 1 -->
+                <div class="drive-card">
+                  <div class="drive-header">
+                    <h5>Central Park Cleanup Campaign</h5>
+                    <p>Sector 4 • Sunday, June 14, 08:00 AM</p>
+                  </div>
+                  <div class="drive-meta">
+                    <span>Organized by: GreenEarth NGO</span>
+                    <span>Target: Remove waste from recreational zones</span>
+                    <div>
+                      <span>Participants: <strong id="drive-1-count">48</strong>/60</span>
+                      <div class="drive-progress-bar">
+                        <div class="drive-progress-fill" id="drive-1-progress" style="width: 80%;"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn-join-drive" id="btn-drive-1" onclick="toggleJoinDrive(1)">Join Cleanup Drive</button>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="drive-card">
+                  <div class="drive-header">
+                    <h5>Riverbank Plastic Sorting Drive</h5>
+                    <p>Sector 9 • Saturday, June 20, 09:00 AM</p>
+                  </div>
+                  <div class="drive-meta">
+                    <span>Organized by: EcoAction Team</span>
+                    <span>Target: Prevent plastics entering waterway</span>
+                    <div>
+                      <span>Participants: <strong id="drive-2-count">12</strong>/30</span>
+                      <div class="drive-progress-bar">
+                        <div class="drive-progress-fill" id="drive-2-progress" style="width: 40%;"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn-join-drive" id="btn-drive-2" onclick="toggleJoinDrive(2)">Join Cleanup Drive</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Screen 6: Leaderboard -->
+          <div class="mockup-screen" id="screen-leaderboard">
+            <div class="screen-header">
+              <div class="screen-title-area">
+                <h4>Neighborhood Rankings</h4>
+                <p>EcoLeaders based on reports filed, validated, and drives completed.</p>
+              </div>
+            </div>
+            <div class="screen-body">
+              <div class="leaderboard-list">
+                <!-- User 1 -->
+                <div class="leaderboard-row">
+                  <div class="leaderboard-user">
+                    <span class="leaderboard-rank">1</span>
+                    <div class="leaderboard-details">
+                      <h6>Sarah Connor</h6>
+                      <span class="badge">Eco Warrior</span>
+                    </div>
+                  </div>
+                  <span class="leaderboard-points">4,550 PTS</span>
+                </div>
+
+                <!-- User 2 -->
+                <div class="leaderboard-row">
+                  <div class="leaderboard-user">
+                    <span class="leaderboard-rank">2</span>
+                    <div class="leaderboard-details">
+                      <h6>Lucas Martinez</h6>
+                      <span class="badge">Pioneer</span>
+                    </div>
+                  </div>
+                  <span class="leaderboard-points">3,820 PTS</span>
+                </div>
+
+                <!-- User 3 -->
+                <div class="leaderboard-row">
+                  <div class="leaderboard-user">
+                    <span class="leaderboard-rank">3</span>
+                    <div class="leaderboard-details">
+                      <h6>Jane Doe</h6>
+                      <span class="badge">Eco Activist</span>
+                    </div>
+                  </div>
+                  <span class="leaderboard-points">2,450 PTS</span>
+                </div>
+
+                <!-- User 4 -->
+                <div class="leaderboard-row" style="background:rgba(16,185,129,0.02); border-color:rgba(16,185,129,0.15);">
+                  <div class="leaderboard-user">
+                    <span class="leaderboard-rank">12</span>
+                    <div class="leaderboard-details">
+                      <h6>You (Active Tester)</h6>
+                      <span class="badge" style="background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.2); color:var(--primary);">Pothole Patrol</span>
+                    </div>
+                  </div>
+                  <span class="leaderboard-points">945 PTS</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Screen 7: Analytics Dashboard -->
+          <div class="mockup-screen" id="screen-analytics">
+            <div class="screen-header">
+              <div class="screen-title-area">
+                <h4>Impact Analytics</h4>
+                <p>Ecological datasets and municipal progress stats for Sector 4.</p>
+              </div>
+            </div>
+            <div class="screen-body">
+              <div class="analytics-grid">
+                <!-- Chart 1: Bar Chart -->
+                <div class="chart-box">
+                  <h5>Monthly Recycled Waste (KG)</h5>
+                  <div class="chart-svg-container">
+                    <div class="bar-chart-bar" style="height: 30%;" data-label="Mar"></div>
+                    <div class="bar-chart-bar" style="height: 55%;" data-label="Apr"></div>
+                    <div class="bar-chart-bar" style="height: 75%;" data-label="May"></div>
+                    <div class="bar-chart-bar" style="height: 90%;" data-label="Jun"></div>
+                  </div>
+                </div>
+
+                <!-- Chart 2: Area Chart -->
+                <div class="chart-box">
+                  <h5>Issue Resolution Speed (Days)</h5>
+                  <div class="chart-svg-container" style="display:block;">
+                    <svg class="area-chart-svg" viewBox="0 0 200 100">
+                      <defs>
+                        <linearGradient id="area-gradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stop-color="var(--secondary)" stop-opacity="0.4"/>
+                          <stop offset="100%" stop-color="var(--secondary)" stop-opacity="0.0"/>
+                        </linearGradient>
+                      </defs>
+                      <!-- Area chart path -->
+                      <path class="area-chart-path" d="M 0 80 Q 50 60 100 40 T 200 20 L 200 100 L 0 100 Z" />
+                      <line x1="0" y1="80" x2="200" y2="80" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2" />
+                      <line x1="0" y1="40" x2="200" y2="40" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2" />
+                    </svg>
+                    <div style="display:flex; justify-content:space-between; font-size:0.6rem; color:var(--text-muted); margin-top:4px;">
+                      <span>Week 1</span>
+                      <span>Week 2</span>
+                      <span>Week 3</span>
+                      <span>Week 4</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coming Soon Section -->
+  <section class="cta" id="waitlist">
+    <div class="container">
+      <div class="cta-box animate-on-scroll">
+        <h2>Be the First to Experience GreenConnectX</h2>
+        <p>Join our waitlist and stay updated as we prepare for launch. Help us test smart features in your neighborhood.</p>
+        
+        <form class="cta-form" id="waitlist-form" onsubmit="submitWaitlist(event)">
+          <input type="email" id="waitlist-email" placeholder="Enter your email address" required>
+          <button type="submit" class="btn btn-primary">Notify Me</button>
+        </form>
+        <div class="success-msg" id="waitlist-success">
+          🎉 Awesome! You have been added to the GreenConnectX priority waitlist.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <img src="logo.png" alt="GreenConnectX Logo" class="logo-icon" style="width:48px; height:48px; border-radius:8px; object-fit:cover; filter: drop-shadow(0 0 6px var(--primary-glow));">
+            GreenConnectX
+          </a>
+          <p>Building cleaner, smarter, and greener communities together through unified civic collaboration technology.</p>
+          <div class="footer-socials">
+            <a href="#" class="social-link" aria-label="Twitter">
+              <svg fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="GitHub">
+              <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h5>Platform</h5>
+          <ul class="footer-links">
+            <li><a href="#about">About Project</a></li>
+            <li><a href="#features">Planned Features</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#roadmap">Development Roadmap</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Community</h5>
+          <ul class="footer-links">
+            <li><a href="#sneak-peek">Home Screen</a></li>
+            <li><a href="#sneak-peek">Cleanup Drives</a></li>
+            <li><a href="#sneak-peek">Leaderboards</a></li>
+            <li><a href="#sneak-peek">Interactive Map</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Contact & Legal</h5>
+          <ul class="footer-links">
+            <li><a href="mailto:greenconnectx.team@gmail.com">📧 greenconnectx.team@gmail.com</a></li>
+            <li><a href="#waitlist">Join Waitlist</a></li>
+            <li><a href="javascript:void(0)" onclick="openModal('modal-privacy')">Privacy Policy</a></li>
+            <li><a href="javascript:void(0)" onclick="openModal('modal-terms')">Terms of Service</a></li>
+            <li><a href="javascript:void(0)" onclick="openModal('modal-contact')">Contact Developers</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 GreenConnectX. All rights reserved. Designed for sustainable civic improvement.</p>
+        <div class="footer-bottom-links">
+          <a href="javascript:void(0)" onclick="openModal('modal-privacy')">Privacy</a>
+          <a href="javascript:void(0)" onclick="openModal('modal-terms')">Terms</a>
+          <a href="javascript:void(0)" onclick="openModal('modal-cookies')">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 1. Privacy Policy Modal Overlay -->
+  <div class="modal-overlay" id="modal-privacy" onclick="closeModal('modal-privacy')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="closeModal('modal-privacy')">&times;</button>
+      <h2>Privacy Policy</h2>
+      <div class="modal-body">
+        <p style="margin-bottom:12px;"><strong>Effective Date: June 11, 2026</strong></p>
+        <p style="margin-bottom:12px;">At GreenConnectX, we prioritize the protection and security of your personal data. This privacy policy describes how we collect, store, and utilize database records when you interact with our website waitlist form:</p>
+        <h4 style="margin:16px 0 8px 0; color:#fff;">1. Information We Collect</h4>
+        <p style="margin-bottom:12px;">We collect only the email addresses submitted directly by users through our Launch Notification Form. No background tracking cookies are used to gather identifying details.</p>
+        <h4 style="margin:16px 0 8px 0; color:#fff;">2. Data Storage & Security</h4>
+        <p style="margin-bottom:12px;">Waitlist emails are stored in a secure SQL database managed locally. We implement industry-standard database indexing and security safeguards to block unauthorized accesses.</p>
+        <h4 style="margin:16px 0 8px 0; color:#fff;">3. Sharing of Information</h4>
+        <p style="margin-bottom:12px;">We do not sell, trade, or distribute your email addresses to third-party marketing services. Data is utilized exclusively for sending platform release schedules and beta testing notifications.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Terms of Service Modal Overlay -->
+  <div class="modal-overlay" id="modal-terms" onclick="closeModal('modal-terms')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="closeModal('modal-terms')">&times;</button>
+      <h2>Terms of Service</h2>
+      <div class="modal-body">
+        <p style="margin-bottom:12px;"><strong>Effective Date: June 11, 2026</strong></p>
+        <p style="margin-bottom:12px;">Please review the following rules governing your participation on the GreenConnectX platform:</p>
+        <h4 style="margin:16px 0 8px 0; color:#fff;">1. Civic Responsibility</h4>
+        <p style="margin-bottom:12px;">Users agree to report only genuine, localized civic and environmental issues. Submitting false data or malicious spam reports is strictly prohibited.</p>
+        <h4 style="margin:16px 0 8px 0; color:#fff;">2. Community Validation</h4>
+        <p style="margin-bottom:12px;">Reported items are verified by neighboring citizens. GreenConnectX reserves the right to remove any ticket that fails community validation or contains inappropriate descriptions.</p>
+        <h4 style="margin:16px 0 8px 0; color:#fff;">3. Waitlist Participation</h4>
+        <p style="margin-bottom:12px;">Signing up for our waitlist does not guarantee immediate beta testing access. Onboarding invitations are dispatched based on neighborhood coordinate densities.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Cookies Policy Modal Overlay -->
+  <div class="modal-overlay" id="modal-cookies" onclick="closeModal('modal-cookies')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="closeModal('modal-cookies')">&times;</button>
+      <h2>Cookies Policy</h2>
+      <div class="modal-body">
+        <p style="margin-bottom:12px;">GreenConnectX utilizes only essential cookies to improve your user experience. Here is how we use them:</p>
+        <h4 style="margin:16px 0 8px 0; color:#fff;">1. Essential Session Cookies</h4>
+        <p style="margin-bottom:12px;">We use basic cookies to identify whether you are currently logged into the testing dashboard and to protect our APIs from Cross-Site Request Forgery (CSRF) attempts.</p>
+        <h4 style="margin:16px 0 8px 0; color:#fff;">2. Local Storage</h4>
+        <p style="margin-bottom:12px;">We leverage browser `localStorage` to save your upvoted map pins and joined cleanup drives locally. This allows mock features to persist in your dashboard view across page refreshes.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Contact Developers Modal Overlay -->
+  <div class="modal-overlay" id="modal-contact" onclick="closeModal('modal-contact')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="closeModal('modal-contact')">&times;</button>
+      <h2>Contact Developers</h2>
+      <div class="modal-body">
+        <p style="margin-bottom:16px; font-size:0.95rem;">Have questions about system integrations or faculty demonstrations? Send us a message at <a href="mailto:greenconnectx.team@gmail.com" style="color:var(--primary);">greenconnectx.team@gmail.com</a> or use the form below:</p>
+        <form class="report-form" id="contact-form" onsubmit="submitContactForm(event)" style="display:flex; flex-direction:column; gap:16px;">
+          <div class="form-group">
+            <label for="contact-name">Your Name</label>
+            <input type="text" id="contact-name" placeholder="Enter your name" required>
+          </div>
+          <div class="form-group">
+            <label for="contact-email">Email Address</label>
+            <input type="email" id="contact-email" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label for="contact-msg">Message</label>
+            <textarea id="contact-msg" rows="3" placeholder="Type your questions or feedback here..." required></textarea>
+          </div>
+          <div style="display:flex; justify-content:flex-end;">
+            <button type="submit" class="btn btn-primary" style="padding:10px 24px; font-size:0.9rem;">Send Message</button>
+          </div>
+        </form>
+        <div id="contact-success" style="display:none; text-align:center; color:var(--primary); font-weight:700; font-size:1rem; margin-top:20px; padding:15px; border: 1px dashed var(--primary); border-radius:12px; background:rgba(16,185,129,0.02); animation:fade-in-up 0.5s ease;">
+          ✓ Message sent successfully! We'll get back to you soon.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script File -->
+  <script src="app.js?v=2.3"></script>
+</body>
+</html>

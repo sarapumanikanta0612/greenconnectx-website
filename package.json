@@ -1,0 +1,23 @@
+{
+  "name": "greenconnectx-landing",
+  "version": "1.0.0",
+  "description": "GreenConnectX - Smart Community & Environmental Engagement Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "prod": "SET NODE_ENV=production && node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^4.21.1",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^8.0.11",
+    "pg": "^8.21.0"
+  }
+}
