@@ -23,14 +23,18 @@ let isConnected = false;
 const initializeOnStartup = async () => {
   if (process.env.DATABASE_URL) {
     console.log('[Database] Initializing connection on startup...');
-    await bootstrapDatabase();
+    try {
+      await bootstrapDatabase();
+    } catch (err) {
+      console.error('[Database] Startup initialization failed:', err.message);
+    }
   }
 };
 
-// Initialize immediately when module loads
-initializeOnStartup().catch(err => {
-  console.error('[Database] Startup initialization failed:', err.message);
-});
+// Initialize immediately when module loads (but don't wait for it)
+if (process.env.DATABASE_URL) {
+  initializeOnStartup();
+}
 
 // Check if credentials are set to default placeholders
 if (!process.env.DATABASE_URL && (!dbConfig.password || dbConfig.password === 'YOUR_POSTGRES_PASSWORD_HERE')) {
@@ -39,9 +43,6 @@ if (!process.env.DATABASE_URL && (!dbConfig.password || dbConfig.password === 'Y
   console.warn('👉 Please set DATABASE_URL environment variable for production');
   console.warn('   or DB_PASSWORD for local development and restart the server.');
   console.warn('======================================================================\n');
-} else if (!process.env.DATABASE_URL) {
-  // Only run bootstrapDatabase here for local development
-  bootstrapDatabase();
 }
 
 async function bootstrapDatabase() {
@@ -151,9 +152,13 @@ module.exports = {
   
   // Force initialization if not connected
   ensureConnection: async () => {
-    if (!isConnected && process.env.DATABASE_URL) {
-      console.log('[Database] Force initializing connection...');
-      await bootstrapDatabase();
+    if (!isConnected) {
+      console.log('[Database] Ensuring connection (force initialization)...');
+      try {
+        await bootstrapDatabase();
+      } catch (error) {
+        console.error('[Database] Failed to ensure connection:', error.message);
+      }
     }
     return isConnected;
   }
