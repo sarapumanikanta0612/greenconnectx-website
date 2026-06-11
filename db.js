@@ -142,5 +142,14 @@ module.exports = {
   
   checkConnection: () => {
     return isConnected;
+  },
+  
+  // Force initialization if not connected
+  ensureConnection: async () => {
+    if (!isConnected && process.env.DATABASE_URL) {
+      console.log('[Database] Force initializing connection...');
+      await bootstrapDatabase();
+    }
+    return isConnected;
   }
 };

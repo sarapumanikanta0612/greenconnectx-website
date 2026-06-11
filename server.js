@@ -209,6 +209,7 @@ app.post('/api/waitlist', async (req, res) => {
   }
 
   // Check if database is configured/connected
+  await db.ensureConnection(); // Force connection if needed
   if (!db.checkConnection()) {
     console.log('[DEBUG] Database not connected');
     console.log('[DEBUG] Environment variables:', {
@@ -269,6 +270,7 @@ app.post('/api/contact', async (req, res) => {
   }
 
   // Check if database is configured/connected
+  await db.ensureConnection(); // Force connection if needed  
   if (!db.checkConnection()) {
     return res.status(503).json({ 
       error: 'Database connection is offline. Please configure your DB_PASSWORD in the ".env" file.' 
