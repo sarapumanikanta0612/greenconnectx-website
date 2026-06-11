@@ -115,7 +115,7 @@ app.get('/api/init-db', async (req, res) => {
       CREATE TABLE IF NOT EXISTS waitlist (
         id SERIAL PRIMARY KEY,
         email VARCHAR(255) UNIQUE NOT NULL,
-        date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        date TIMESTAMPTZ DEFAULT NOW()
       )
     `);
     
@@ -125,7 +125,7 @@ app.get('/api/init-db', async (req, res) => {
         name VARCHAR(255) NOT NULL,
         email VARCHAR(255) NOT NULL,
         message TEXT NOT NULL,
-        date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        date TIMESTAMPTZ DEFAULT NOW(),
         status VARCHAR(50) DEFAULT 'new'
       )
     `);
@@ -197,6 +197,18 @@ app.get('/api/test-email', async (req, res) => {
       gmailPassword: process.env.GMAIL_APP_PASSWORD ? 'SET' : 'NOT_SET'
     });
   }
+});
+
+// Current time test endpoint
+app.get('/api/current-time', (req, res) => {
+  const now = new Date();
+  res.json({
+    serverTime: now.toISOString(),
+    serverTimeLocal: now.toString(),
+    serverTimeUTC: now.toUTCString(),
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    timestamp: now.getTime()
+  });
 });
 
 // Waitlist Registration API
