@@ -64,7 +64,9 @@ app.get('/api/health', async (req, res) => {
     database: 'unknown',
     environment: process.env.NODE_ENV || 'development',
     databaseUrl: process.env.DATABASE_URL ? 'SET' : 'NOT_SET',
-    gmail: process.env.GMAIL_USER ? 'SET' : 'NOT_SET'
+    gmail: process.env.GMAIL_USER ? 'SET' : 'NOT_SET',
+    databaseUrlLength: process.env.DATABASE_URL ? process.env.DATABASE_URL.length : 0,
+    databaseUrlStart: process.env.DATABASE_URL ? process.env.DATABASE_URL.substring(0, 30) + '...' : 'NOT_SET'
   };
   
   try {
@@ -73,6 +75,18 @@ app.get('/api/health', async (req, res) => {
       healthStatus.database = 'connected';
     } else {
       healthStatus.database = 'not_connected';
+      
+      // Try to get more detailed error info
+      try {
+        const { Pool } = require('pg');
+        const testPool = new Pool({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
+        await testPool.query('SELECT NOW()');
+        healthStatus.database = 'test_connection_success_but_not_initialized';
+        await testPool.end();
+      } catch (testError) {
+        healthStatus.database = 'connection_error';
+        healthStatus.connectionError = testError.message;
+      }
     }
     
     res.json(healthStatus);
