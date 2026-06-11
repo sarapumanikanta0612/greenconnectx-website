@@ -96,6 +96,107 @@ app.get('/api/health', async (req, res) => {
   }
 });
 
+// Manual database initialization endpoint
+app.get('/api/init-db', async (req, res) => {
+  try {
+    const db = require('./db');
+    
+    // Force re-initialization
+    const { Pool } = require('pg');
+    const pool = new Pool({ 
+      connectionString: process.env.DATABASE_URL, 
+      ssl: { rejectUnauthorized: false } 
+    });
+    
+    // Create tables
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS waitlist (
+        id SERIAL PRIMARY KEY,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+    
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS contacts (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        message TEXT NOT NULL,
+        date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        status VARCHAR(50) DEFAULT 'new'
+      )
+    `);
+    
+    await pool.end();
+    
+    res.json({ 
+      success: true, 
+      message: 'Database tables initialized successfully',
+      tables: ['waitlist', 'contacts']
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      error: error.message 
+    });
+  }
+});
+
+// Email test endpoint
+app.get('/api/test-email', async (req, res) => {
+  try {
+    const emailStatus = {
+      gmailUser: process.env.GMAIL_USER ? 'SET' : 'NOT_SET',
+      gmailPassword: process.env.GMAIL_APP_PASSWORD ? 'SET' : 'NOT_SET',
+      transporter: 'unknown'
+    };
+    
+    // Test email configuration
+    if (!process.env.GMAIL_APP_PASSWORD) {
+      emailStatus.error = 'Gmail App Password not configured';
+      return res.status(400).json(emailStatus);
+    }
+    
+    const nodemailer = require('nodemailer');
+    const testTransporter = nodemailer.createTransporter({
+      service: 'gmail',
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD
+      }
+    });
+    
+    // Test connection
+    await testTransporter.verify();
+    emailStatus.transporter = 'connection_verified';
+    
+    // Send test email
+    const testEmail = await testTransporter.sendMail({
+      from: process.env.GMAIL_USER,
+      to: process.env.GMAIL_USER, // Send to self
+      subject: '✅ GreenConnectX Email Test - ' + new Date().toISOString(),
+      html: `
+        <h2>Email Test Successful! 🎉</h2>
+        <p>This test email was sent from your Vercel deployment at ${new Date().toISOString()}</p>
+        <p>Email service is working correctly.</p>
+      `
+    });
+    
+    emailStatus.testEmail = 'sent_successfully';
+    emailStatus.messageId = testEmail.messageId;
+    
+    res.json(emailStatus);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      gmailUser: process.env.GMAIL_USER ? 'SET' : 'NOT_SET',
+      gmailPassword: process.env.GMAIL_APP_PASSWORD ? 'SET' : 'NOT_SET'
+    });
+  }
+});
+
 // Waitlist Registration API
 app.post('/api/waitlist', async (req, res) => {
   console.log('[DEBUG] Waitlist API called');
