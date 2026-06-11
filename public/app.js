@@ -414,14 +414,21 @@ document.addEventListener('DOMContentLoaded', () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email })
     })
-    .then(res => {
+    .then(async res => {
+      const text = await res.text();
+      console.log('Server response:', text);
+      
       if (res.ok) {
         waitlistForm.style.display = 'none';
         waitlistSuccess.style.display = 'block';
       } else {
-        return res.json().then(data => {
+        try {
+          const data = JSON.parse(text);
           alert(data.error || 'Failed to register email.');
-        });
+        } catch (e) {
+          console.error('Server returned non-JSON:', text);
+          alert('Server error. Check console for details.');
+        }
       }
     })
     .catch(err => {
@@ -475,20 +482,32 @@ document.addEventListener('DOMContentLoaded', () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: name, email: email, message: msg })
     })
-    .then(res => {
+    .then(async res => {
+      const text = await res.text();
+      console.log('Contact server response:', text);
+      
       if (res.ok) {
-        return res.json();
+        try {
+          const data = JSON.parse(text);
+          // Hide contact form and show success
+          document.getElementById('contact-form').style.display = 'none';
+          document.getElementById('contact-success').style.display = 'block';
+          console.log('[Contact] Message sent successfully:', data);
+        } catch (e) {
+          console.error('Contact response was not JSON:', text);
+          // Still show success if status is ok
+          document.getElementById('contact-form').style.display = 'none';
+          document.getElementById('contact-success').style.display = 'block';
+        }
       } else {
-        return res.json().then(data => {
+        try {
+          const data = JSON.parse(text);
           throw new Error(data.error || 'Failed to send message.');
-        });
+        } catch (e) {
+          console.error('Server returned non-JSON error:', text);
+          throw new Error('Server error. Check console for details.');
+        }
       }
-    })
-    .then(data => {
-      // Hide contact form and show success
-      document.getElementById('contact-form').style.display = 'none';
-      document.getElementById('contact-success').style.display = 'block';
-      console.log('[Contact] Message sent successfully:', data);
     })
     .catch(err => {
       console.error('[Contact API Error]', err);

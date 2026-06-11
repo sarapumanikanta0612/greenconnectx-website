@@ -59,20 +59,32 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Waitlist Registration API
 app.post('/api/waitlist', async (req, res) => {
+  console.log('[DEBUG] Waitlist API called');
+  
   const { email } = req.body;
   
   if (!email || !email.includes('@')) {
+    console.log('[DEBUG] Invalid email provided');
     return res.status(400).json({ error: 'A valid email address is required.' });
   }
 
   // Check if database is configured/connected
   if (!db.checkConnection()) {
+    console.log('[DEBUG] Database not connected');
+    console.log('[DEBUG] Environment variables:', {
+      DB_HOST: process.env.DB_HOST,
+      DB_PORT: process.env.DB_PORT,
+      DB_USER: process.env.DB_USER,
+      DB_NAME: process.env.DB_NAME,
+      DB_PASSWORD: process.env.DB_PASSWORD ? 'SET' : 'NOT_SET'
+    });
     return res.status(503).json({ 
       error: 'Database connection is offline. Please configure your DB_PASSWORD in the ".env" file.' 
     });
   }
 
   try {
+    console.log('[DEBUG] Attempting to add email to waitlist:', email);
     await db.addWaitlist(email);
     console.log(`[Waitlist] New signup recorded: ${email}`);
     
@@ -89,6 +101,7 @@ app.post('/api/waitlist', async (req, res) => {
     
     res.status(201).json({ success: true, message: 'Successfully added to waitlist!' });
   } catch (error) {
+    console.error('[DEBUG] Database error:', error);
     // Catch duplicate SQL constraint
     if (error.code === '23505' || (error.message && error.message.includes('unique constraint'))) {
       return res.status(400).json({ error: 'This email is already registered on our waitlist.' });
