@@ -409,6 +409,12 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     const email = document.getElementById('waitlist-email').value;
 
+    // Client-side validation
+    if (!email || !email.includes('@') || email.length < 5) {
+      alert('❌ Please enter a valid email address.');
+      return;
+    }
+
     fetch('/api/waitlist', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -424,17 +430,27 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         try {
           const data = JSON.parse(text);
-          alert(data.error || 'Failed to register email.');
+          // Show specific error messages
+          if (data.error.includes('already registered')) {
+            alert('✅ This email is already on our waitlist! You\'ll be notified when we launch.');
+          } else if (data.error.includes('valid email')) {
+            alert('❌ Please enter a valid email address.');
+          } else if (data.error.includes('Database connection')) {
+            alert('⚠️ Server is temporarily unavailable. Please try again in a moment.');
+          } else {
+            alert('❌ ' + data.error);
+          }
         } catch (e) {
           console.error('Server returned non-JSON:', text);
-          alert('Server error. Check console for details.');
+          alert('⚠️ Server error occurred. Please try again or check your internet connection.');
         }
       }
     })
     .catch(err => {
       console.error('[API Error] Waitlist submit error:', err);
-      alert('Could not connect to the waitlist server. Please ensure the server is running.');
+      alert('⚠️ Network error. Please check your internet connection and try again.');
     });
+  };
   };
 
   // 10. Interactive Footer Modals Controller
@@ -470,6 +486,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const email = document.getElementById('contact-email').value;
     const msg = document.getElementById('contact-msg').value;
 
+    // Client-side validation with specific messages
+    if (!name || name.trim().length < 2) {
+      alert('❌ Name must be at least 2 characters long.');
+      return;
+    }
+    
+    if (!email || !email.includes('@')) {
+      alert('❌ Please enter a valid email address.');
+      return;
+    }
+    
+    if (!msg || msg.trim().length < 10) {
+      alert('❌ Message is too short. Please write at least 10 characters.');
+      return;
+    }
+
     // Show loading state
     const submitBtn = document.querySelector('#contact-form button[type="submit"]');
     const originalText = submitBtn.textContent;
@@ -502,16 +534,31 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         try {
           const data = JSON.parse(text);
-          throw new Error(data.error || 'Failed to send message.');
+          // Show specific server error message
+          if (data.error.includes('Name must be')) {
+            alert('❌ ' + data.error);
+          } else if (data.error.includes('email')) {
+            alert('❌ ' + data.error);
+          } else if (data.error.includes('Message must be')) {
+            alert('❌ Message is too short. Please write at least 10 characters.');
+          } else if (data.error.includes('Database connection')) {
+            alert('⚠️ Server is temporarily unavailable. Please try again in a moment.');
+          } else {
+            alert('❌ ' + data.error);
+          }
         } catch (e) {
           console.error('Server returned non-JSON error:', text);
-          throw new Error('Server error. Check console for details.');
+          alert('⚠️ Server error occurred. Please try again or check your internet connection.');
         }
       }
+      
+      // Reset button state
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
     })
     .catch(err => {
       console.error('[Contact API Error]', err);
-      alert('Error: ' + err.message);
+      alert('⚠️ Network error. Please check your internet connection and try again.');
       
       // Reset button state on error
       submitBtn.textContent = originalText;
