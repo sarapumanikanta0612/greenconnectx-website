@@ -95,7 +95,7 @@ async function bootstrapDatabase() {
       CREATE TABLE IF NOT EXISTS waitlist (
         id SERIAL PRIMARY KEY,
         email VARCHAR(255) UNIQUE NOT NULL,
-        date TIMESTAMPTZ DEFAULT NOW()
+        date TIMESTAMPTZ DEFAULT (NOW() AT TIME ZONE 'Asia/Kolkata')
       )
     `);
     
@@ -106,7 +106,7 @@ async function bootstrapDatabase() {
         name VARCHAR(255) NOT NULL,
         email VARCHAR(255) NOT NULL,
         message TEXT NOT NULL,
-        date TIMESTAMPTZ DEFAULT NOW(),
+        date TIMESTAMPTZ DEFAULT (NOW() AT TIME ZONE 'Asia/Kolkata'),
         status VARCHAR(50) DEFAULT 'new'
       )
     `);
