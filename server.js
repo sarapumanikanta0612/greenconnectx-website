@@ -254,28 +254,38 @@ app.post('/api/waitlist', async (req, res) => {
 
 // Contact Form API
 app.post('/api/contact', async (req, res) => {
+  console.log('[Contact] Received contact form submission:', req.body);
+  
   const { name, email, message } = req.body;
   
   // Validation
   if (!name || name.trim().length < 2) {
+    console.log('[Contact] Validation failed: Name too short');
     return res.status(400).json({ error: 'Name must be at least 2 characters long.' });
   }
   
   if (!email || !email.includes('@')) {
+    console.log('[Contact] Validation failed: Invalid email');
     return res.status(400).json({ error: 'A valid email address is required.' });
   }
   
   if (!message || message.trim().length < 10) {
+    console.log('[Contact] Validation failed: Message too short', message?.length);
     return res.status(400).json({ error: 'Message must be at least 10 characters long.' });
   }
+
+  console.log('[Contact] Validation passed, checking database connection...');
 
   // Check if database is configured/connected
   await db.ensureConnection(); // Force connection if needed  
   if (!db.checkConnection()) {
+    console.log('[Contact] Database connection failed');
     return res.status(503).json({ 
       error: 'Database connection is offline. Please configure your DB_PASSWORD in the ".env" file.' 
     });
   }
+
+  console.log('[Contact] Database connected, saving to database...');
 
   try {
     const result = await db.addContact(name.trim(), email.trim(), message.trim());
@@ -290,6 +300,8 @@ app.post('/api/contact', async (req, res) => {
       id: contactId
     };
     
+    console.log('[Contact] Sending email notifications...');
+    
     // Send notification to admin (you) - don't wait for it
     emailService.sendContactNotification(contactData).catch(err => {
       console.error('[Email] Admin notification failed:', err.message);
@@ -300,6 +312,7 @@ app.post('/api/contact', async (req, res) => {
       console.error('[Email] Auto-response failed:', err.message);
     });
     
+    console.log('[Contact] Success response sent');
     res.status(201).json({ 
       success: true, 
       message: 'Your message has been sent successfully! We will get back to you soon.',
