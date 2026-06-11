@@ -19,6 +19,19 @@ const dbConfig = process.env.DATABASE_URL ?
 let pool = null;
 let isConnected = false;
 
+// Force initialization on server startup
+const initializeOnStartup = async () => {
+  if (process.env.DATABASE_URL) {
+    console.log('[Database] Initializing connection on startup...');
+    await bootstrapDatabase();
+  }
+};
+
+// Initialize immediately when module loads
+initializeOnStartup().catch(err => {
+  console.error('[Database] Startup initialization failed:', err.message);
+});
+
 // Check if credentials are set to default placeholders
 if (!process.env.DATABASE_URL && (!dbConfig.password || dbConfig.password === 'YOUR_POSTGRES_PASSWORD_HERE')) {
   console.warn('\n======================================================================');
@@ -26,7 +39,8 @@ if (!process.env.DATABASE_URL && (!dbConfig.password || dbConfig.password === 'Y
   console.warn('👉 Please set DATABASE_URL environment variable for production');
   console.warn('   or DB_PASSWORD for local development and restart the server.');
   console.warn('======================================================================\n');
-} else {
+} else if (!process.env.DATABASE_URL) {
+  // Only run bootstrapDatabase here for local development
   bootstrapDatabase();
 }
 
