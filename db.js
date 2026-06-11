@@ -85,6 +85,10 @@ async function bootstrapDatabase() {
       pool = new Pool(dbConfig);
     }
     
+    // Test the connection
+    const testResult = await pool.query('SELECT NOW()');
+    console.log('[Database] Connection test successful:', testResult.rows[0].now);
+    
     // Initialize Waitlist table
     await pool.query(`
       CREATE TABLE IF NOT EXISTS waitlist (
@@ -109,6 +113,7 @@ async function bootstrapDatabase() {
     isConnected = true;
     console.log(`[Database] PostgreSQL initialized successfully. Tables "waitlist" and "contacts" are ready.`);
   } catch (error) {
+    isConnected = false;
     console.error('\n======================================================================');
     console.error('❌ [Database ERROR] Could not connect to database server.');
     console.error(`Reason: ${error.message}`);
