@@ -57,6 +57,31 @@ app.use(express.static(path.join(__dirname, 'public')));
    API ENDPOINTS
    ========================================================================== */
 
+// Health check endpoint
+app.get('/api/health', async (req, res) => {
+  const healthStatus = {
+    server: 'running',
+    database: 'unknown',
+    environment: process.env.NODE_ENV || 'development',
+    databaseUrl: process.env.DATABASE_URL ? 'SET' : 'NOT_SET',
+    gmail: process.env.GMAIL_USER ? 'SET' : 'NOT_SET'
+  };
+  
+  try {
+    // Test database connection
+    if (db.checkConnection()) {
+      healthStatus.database = 'connected';
+    } else {
+      healthStatus.database = 'not_connected';
+    }
+    
+    res.json(healthStatus);
+  } catch (error) {
+    healthStatus.database = 'error: ' + error.message;
+    res.status(500).json(healthStatus);
+  }
+});
+
 // Waitlist Registration API
 app.post('/api/waitlist', async (req, res) => {
   console.log('[DEBUG] Waitlist API called');
