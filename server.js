@@ -159,7 +159,7 @@ app.get('/api/test-email', async (req, res) => {
     }
     
     const nodemailer = require('nodemailer');
-    const testTransporter = nodemailer.createTransporter({
+    const testTransporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: process.env.GMAIL_USER,
