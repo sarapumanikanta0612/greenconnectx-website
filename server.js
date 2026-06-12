@@ -54,6 +54,22 @@ app.use((req, res, next) => {
 // Serve static frontend files from 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Add a simple test route
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    message: 'Server is running',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
+// Add explicit route for homepage
+app.get('/', (req, res) => {
+  console.log('[Server] Homepage requested');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 /* ==========================================================================
    API ENDPOINTS
    ========================================================================== */
