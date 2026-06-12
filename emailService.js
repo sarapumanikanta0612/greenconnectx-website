@@ -96,13 +96,14 @@ async function sendContactNotification(contactData) {
           <p>This email was sent automatically from your GreenConnectX landing page contact form.</p>
         </div>
       </div>
-    `
+    `,
+    timeout: 10000 // 10 second timeout
   };
 
   try {
-    await transporter.sendMail(mailOptions);
+    const result = await transporter.sendMail(mailOptions);
     console.log(`[Email] Contact notification sent successfully for message ID: ${id}`);
-    return { success: true, message: 'Email notification sent' };
+    return { success: true, message: 'Email notification sent', messageId: result.messageId };
   } catch (error) {
     console.error('[Email] Failed to send contact notification:', error.message);
     return { success: false, message: error.message };

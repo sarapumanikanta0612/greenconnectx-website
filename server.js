@@ -243,17 +243,18 @@ app.post('/api/waitlist', async (req, res) => {
     await db.addWaitlist(email);
     console.log(`[Waitlist] New signup recorded: ${email}`);
     
-    // Send email notifications for waitlist signup
-    // Send notification to admin (you) - don't wait for it
-    emailService.sendWaitlistNotification(email).catch(err => {
-      console.error('[Email] Waitlist admin notification failed:', err.message);
+    // Send email notifications asynchronously (don't wait)
+    setImmediate(() => {
+      emailService.sendWaitlistNotification(email).catch(err => {
+        console.error('[Email] Waitlist admin notification failed:', err.message);
+      });
+      
+      emailService.sendWaitlistWelcome(email).catch(err => {
+        console.error('[Email] Waitlist welcome email failed:', err.message);
+      });
     });
     
-    // Send welcome email to user - don't wait for it
-    emailService.sendWaitlistWelcome(email).catch(err => {
-      console.error('[Email] Waitlist welcome email failed:', err.message);
-    });
-    
+    // Respond immediately to user
     res.status(201).json({ success: true, message: 'Successfully added to waitlist!' });
   } catch (error) {
     console.error('[DEBUG] Database error:', error);
@@ -306,7 +307,7 @@ app.post('/api/contact', async (req, res) => {
     const contactId = result.rows[0].id;
     console.log(`[Contact] New message received from ${name} (${email}) - ID: ${contactId}`);
     
-    // Send email notifications
+    // Send email notifications asynchronously (don't wait)
     const contactData = {
       name: name.trim(),
       email: email.trim(),
@@ -314,19 +315,20 @@ app.post('/api/contact', async (req, res) => {
       id: contactId
     };
     
-    console.log('[Contact] Sending email notifications...');
-    
-    // Send notification to admin (you) - don't wait for it
-    emailService.sendContactNotification(contactData).catch(err => {
-      console.error('[Email] Admin notification failed:', err.message);
+    setImmediate(() => {
+      console.log('[Contact] Sending email notifications...');
+      
+      emailService.sendContactNotification(contactData).catch(err => {
+        console.error('[Email] Admin notification failed:', err.message);
+      });
+      
+      emailService.sendContactAutoResponse(contactData).catch(err => {
+        console.error('[Email] Auto-response failed:', err.message);
+      });
     });
     
-    // Send auto-response to user - don't wait for it
-    emailService.sendContactAutoResponse(contactData).catch(err => {
-      console.error('[Email] Auto-response failed:', err.message);
-    });
-    
-    console.log('[Contact] Success response sent');
+    console.log('[Contact] Success response sent immediately');
+    // Respond immediately to user
     res.status(201).json({ 
       success: true, 
       message: 'Your message has been sent successfully! We will get back to you soon.',
