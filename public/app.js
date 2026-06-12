@@ -3,6 +3,23 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('[DEBUG] DOM Content Loaded');
+  
+  // Force show all sections immediately
+  const sections = document.querySelectorAll('.hero-section, .features-section, .about-section, .animate-on-scroll');
+  console.log('[DEBUG] Found sections:', sections.length);
+  
+  sections.forEach((section, index) => {
+    if (section) {
+      section.style.opacity = '1';
+      section.style.visibility = 'visible';
+      section.style.display = 'block';
+      section.classList.add('appear');
+      console.log(`[DEBUG] Made section ${index} visible`);
+    }
+  });
+  
+  // Rest of the original code follows...
 
   // 1. Scroll-Driven Entry Animations (Intersection Observer)
   const animElements = document.querySelectorAll('.animate-on-scroll');
