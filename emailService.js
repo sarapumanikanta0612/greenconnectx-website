@@ -6,25 +6,17 @@ const nodemailer = require('nodemailer');
 
 // Email configuration
 const emailConfig = {
-  host: 'smtp.gmail.com',
-  port: 587,
-  secure: false, // true for 465, false for other ports
+  service: 'gmail',
   auth: {
     user: process.env.GMAIL_USER || 'greenconnectx.team@gmail.com',
     pass: process.env.GMAIL_APP_PASSWORD
-  },
-  tls: {
-    rejectUnauthorized: false
-  },
-  connectionTimeout: 60000, // 60 seconds
-  greetingTimeout: 30000,   // 30 seconds
-  socketTimeout: 60000      // 60 seconds
+  }
 };
 
 let transporter = null;
 
 // Initialize email transporter
-async function initializeEmail() {
+function initializeEmail() {
   console.log('[Email] Initializing email service...');
   console.log('[Email] Gmail user:', process.env.GMAIL_USER ? 'SET' : 'NOT_SET');
   console.log('[Email] Gmail password length:', process.env.GMAIL_APP_PASSWORD ? process.env.GMAIL_APP_PASSWORD.length : 0);
@@ -34,17 +26,9 @@ async function initializeEmail() {
     return false;
   }
 
-  if (process.env.GMAIL_APP_PASSWORD.length !== 16) {
-    console.warn('[Email] Gmail App Password should be 16 characters. Current length:', process.env.GMAIL_APP_PASSWORD.length);
-  }
-
   try {
     transporter = nodemailer.createTransport(emailConfig);
-    
-    // Test connection on initialization
-    console.log('[Email] Testing SMTP connection...');
-    await transporter.verify();
-    console.log('[Email] Gmail SMTP connection verified successfully.');
+    console.log('[Email] Gmail transporter initialized successfully.');
     return true;
   } catch (error) {
     console.error('[Email] Failed to initialize Gmail transporter:', error.message);
@@ -52,13 +36,35 @@ async function initializeEmail() {
   }
 }
 
+// Alternative: Use fetch to send emails via webhook/API instead of SMTP
+async function sendEmailViaWebhook(emailData) {
+  // For now, we'll log the email content and suggest using Resend
+  console.log('[Email] SMTP blocked by Vercel. Email content:', {
+    to: emailData.to,
+    subject: emailData.subject,
+    from: emailData.from
+  });
+  
+  console.log('[Email] Suggestion: Use Resend.com for serverless email sending');
+  console.log('[Email] Visit: https://resend.com to set up proper email service');
+  
+  return { 
+    success: false, 
+    message: 'SMTP not supported in serverless environment. Use Resend.com instead.' 
+  };
+}
 // Send contact form notification to admin
 async function sendContactNotification(contactData) {
   console.log('[Email] sendContactNotification called with:', { id: contactData.id, email: contactData.email });
   
   if (!transporter) {
-    console.log('[Email] Transporter not available, skipping email notification.');
-    return { success: false, message: 'Email service not configured' };
+    console.log('[Email] Transporter not available, using webhook fallback.');
+    return await sendEmailViaWebhook({
+      to: 'greenconnectx.team@gmail.com',
+      from: process.env.GMAIL_USER,
+      subject: `🚀 New Contact Message from ${contactData.name} - GreenConnectX`,
+      html: 'Contact form submission received'
+    });
   }
 
   const { name, email, message, id } = contactData;

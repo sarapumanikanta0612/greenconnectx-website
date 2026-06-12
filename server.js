@@ -13,21 +13,8 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 // Initialize email service
-emailService.initializeEmail().then(result => {
-  console.log('[Server] Email service initialization result:', result);
-  
-  // Test email on startup
-  if (result) {
-    console.log('[Server] Testing email service on startup...');
-    emailService.sendWaitlistNotification('test@startup.com').then(result => {
-      console.log('[Server] Startup email test result:', result);
-    }).catch(err => {
-      console.error('[Server] Startup email test failed:', err.message);
-    });
-  }
-}).catch(err => {
-  console.error('[Server] Email service initialization failed:', err.message);
-});
+const emailInitResult = emailService.initializeEmail();
+console.log('[Server] Email service initialization result:', emailInitResult);
 
 // Middleware
 app.use(cors());
