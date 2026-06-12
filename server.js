@@ -337,18 +337,22 @@ app.post('/api/contact', async (req, res) => {
       console.log('[Contact] Starting async email sending...');
       
       try {
+        console.log('[Contact] Calling sendContactNotification...');
         const adminResult = await emailService.sendContactNotification(contactData);
         console.log('[Email] Admin notification result:', adminResult);
       } catch (err) {
-        console.error('[Email] Admin notification failed:', err.message);
+        console.error('[Email] Admin notification ERROR:', err);
       }
       
       try {
+        console.log('[Contact] Calling sendContactAutoResponse...');
         const userResult = await emailService.sendContactAutoResponse(contactData);
         console.log('[Email] User auto-response result:', userResult);
       } catch (err) {
-        console.error('[Email] Auto-response failed:', err.message);
+        console.error('[Email] Auto-response ERROR:', err);
       }
+      
+      console.log('[Contact] Async email processing completed');
     });
     
     console.log('[Contact] Success response sent immediately');

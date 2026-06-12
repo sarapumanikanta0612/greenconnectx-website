@@ -49,12 +49,16 @@ function initializeEmail() {
 
 // Send contact form notification to admin
 async function sendContactNotification(contactData) {
+  console.log('[Email] sendContactNotification called with:', { id: contactData.id, email: contactData.email });
+  
   if (!transporter) {
     console.log('[Email] Transporter not available, skipping email notification.');
     return { success: false, message: 'Email service not configured' };
   }
 
   const { name, email, message, id } = contactData;
+  
+  console.log('[Email] Preparing admin notification email...');
   
   const mailOptions = {
     from: process.env.GMAIL_USER || 'greenconnectx.team@gmail.com',
@@ -108,15 +112,17 @@ async function sendContactNotification(contactData) {
         </div>
       </div>
     `,
-    timeout: 10000 // 10 second timeout
+    timeout: 15000 // 15 second timeout
   };
+
+  console.log('[Email] Attempting to send admin notification...');
 
   try {
     const result = await transporter.sendMail(mailOptions);
-    console.log(`[Email] Contact notification sent successfully for message ID: ${id}`);
+    console.log(`[Email] Contact notification sent successfully for message ID: ${id}, messageId: ${result.messageId}`);
     return { success: true, message: 'Email notification sent', messageId: result.messageId };
   } catch (error) {
-    console.error('[Email] Failed to send contact notification:', error.message);
+    console.error('[Email] Failed to send contact notification:', error);
     return { success: false, message: error.message };
   }
 }
