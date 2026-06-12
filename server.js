@@ -67,7 +67,28 @@ app.get('/health', (req, res) => {
 // Add explicit route for homepage
 app.get('/', (req, res) => {
   console.log('[Server] Homepage requested');
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  try {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  } catch (error) {
+    console.error('[Server] Error serving homepage:', error);
+    res.status(500).send('Error loading page');
+  }
+});
+
+// Add explicit routes for static files
+app.get('/styles.css', (req, res) => {
+  console.log('[Server] CSS requested');
+  res.sendFile(path.join(__dirname, 'public', 'styles.css'));
+});
+
+app.get('/app.js', (req, res) => {
+  console.log('[Server] JS requested');
+  res.sendFile(path.join(__dirname, 'public', 'app.js'));
+});
+
+app.get('/logo.png', (req, res) => {
+  console.log('[Server] Logo requested');
+  res.sendFile(path.join(__dirname, 'public', 'logo.png'));
 });
 
 /* ==========================================================================
