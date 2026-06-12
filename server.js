@@ -16,6 +16,16 @@ const PORT = process.env.PORT || 8080;
 const emailInitResult = emailService.initializeEmail();
 console.log('[Server] Email service initialization result:', emailInitResult);
 
+// Test email on startup
+if (emailInitResult) {
+  console.log('[Server] Testing email service on startup...');
+  emailService.sendWaitlistNotification('test@startup.com').then(result => {
+    console.log('[Server] Startup email test result:', result);
+  }).catch(err => {
+    console.error('[Server] Startup email test failed:', err.message);
+  });
+}
+
 // Middleware
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
@@ -244,14 +254,22 @@ app.post('/api/waitlist', async (req, res) => {
     console.log(`[Waitlist] New signup recorded: ${email}`);
     
     // Send email notifications asynchronously (don't wait)
-    setImmediate(() => {
-      emailService.sendWaitlistNotification(email).catch(err => {
-        console.error('[Email] Waitlist admin notification failed:', err.message);
-      });
+    setImmediate(async () => {
+      console.log('[Waitlist] Starting async email sending...');
       
-      emailService.sendWaitlistWelcome(email).catch(err => {
+      try {
+        const adminResult = await emailService.sendWaitlistNotification(email);
+        console.log('[Email] Waitlist admin notification result:', adminResult);
+      } catch (err) {
+        console.error('[Email] Waitlist admin notification failed:', err.message);
+      }
+      
+      try {
+        const welcomeResult = await emailService.sendWaitlistWelcome(email);
+        console.log('[Email] Waitlist welcome result:', welcomeResult);
+      } catch (err) {
         console.error('[Email] Waitlist welcome email failed:', err.message);
-      });
+      }
     });
     
     // Respond immediately to user
@@ -315,16 +333,22 @@ app.post('/api/contact', async (req, res) => {
       id: contactId
     };
     
-    setImmediate(() => {
-      console.log('[Contact] Sending email notifications...');
+    setImmediate(async () => {
+      console.log('[Contact] Starting async email sending...');
       
-      emailService.sendContactNotification(contactData).catch(err => {
+      try {
+        const adminResult = await emailService.sendContactNotification(contactData);
+        console.log('[Email] Admin notification result:', adminResult);
+      } catch (err) {
         console.error('[Email] Admin notification failed:', err.message);
-      });
+      }
       
-      emailService.sendContactAutoResponse(contactData).catch(err => {
+      try {
+        const userResult = await emailService.sendContactAutoResponse(contactData);
+        console.log('[Email] User auto-response result:', userResult);
+      } catch (err) {
         console.error('[Email] Auto-response failed:', err.message);
-      });
+      }
     });
     
     console.log('[Contact] Success response sent immediately');

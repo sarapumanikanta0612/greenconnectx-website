@@ -19,15 +19,26 @@ let transporter = null;
 function initializeEmail() {
   console.log('[Email] Initializing email service...');
   console.log('[Email] Gmail user:', process.env.GMAIL_USER ? 'SET' : 'NOT_SET');
-  console.log('[Email] Gmail password:', process.env.GMAIL_APP_PASSWORD ? 'SET' : 'NOT_SET');
+  console.log('[Email] Gmail password length:', process.env.GMAIL_APP_PASSWORD ? process.env.GMAIL_APP_PASSWORD.length : 0);
   
   if (!process.env.GMAIL_APP_PASSWORD) {
     console.warn('[Email] Gmail App Password not configured. Email notifications disabled.');
     return false;
   }
 
+  if (process.env.GMAIL_APP_PASSWORD.length !== 16) {
+    console.warn('[Email] Gmail App Password should be 16 characters. Current length:', process.env.GMAIL_APP_PASSWORD.length);
+  }
+
   try {
-    transporter = nodemailer.createTransport(emailConfig);
+    transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD
+      },
+      timeout: 10000 // 10 second timeout
+    });
     console.log('[Email] Gmail transporter initialized successfully.');
     return true;
   } catch (error) {
