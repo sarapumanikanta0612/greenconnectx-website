@@ -6,17 +6,25 @@ const nodemailer = require('nodemailer');
 
 // Email configuration
 const emailConfig = {
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false, // true for 465, false for other ports
   auth: {
     user: process.env.GMAIL_USER || 'greenconnectx.team@gmail.com',
-    pass: process.env.GMAIL_APP_PASSWORD // You'll need to set this in .env
-  }
+    pass: process.env.GMAIL_APP_PASSWORD
+  },
+  tls: {
+    rejectUnauthorized: false
+  },
+  connectionTimeout: 60000, // 60 seconds
+  greetingTimeout: 30000,   // 30 seconds
+  socketTimeout: 60000      // 60 seconds
 };
 
 let transporter = null;
 
 // Initialize email transporter
-function initializeEmail() {
+async function initializeEmail() {
   console.log('[Email] Initializing email service...');
   console.log('[Email] Gmail user:', process.env.GMAIL_USER ? 'SET' : 'NOT_SET');
   console.log('[Email] Gmail password length:', process.env.GMAIL_APP_PASSWORD ? process.env.GMAIL_APP_PASSWORD.length : 0);
@@ -31,15 +39,12 @@ function initializeEmail() {
   }
 
   try {
-    transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD
-      },
-      timeout: 10000 // 10 second timeout
-    });
-    console.log('[Email] Gmail transporter initialized successfully.');
+    transporter = nodemailer.createTransport(emailConfig);
+    
+    // Test connection on initialization
+    console.log('[Email] Testing SMTP connection...');
+    await transporter.verify();
+    console.log('[Email] Gmail SMTP connection verified successfully.');
     return true;
   } catch (error) {
     console.error('[Email] Failed to initialize Gmail transporter:', error.message);
