@@ -3,16 +3,20 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('[DEBUG] DOM Content Loaded');
-  
-  // Force show all animated sections immediately for better compatibility
-  const animatedElements = document.querySelectorAll('.animate-on-scroll');
-  animatedElements.forEach((element, index) => {
-    element.classList.add('appear');
-    console.log(`[DEBUG] Made animated element ${index} visible`);
+
+  // Mobile debugging - log device info
+  console.log('[DEBUG] Device info:', {
+    userAgent: navigator.userAgent,
+    platform: navigator.platform,
+    screenWidth: screen.width,
+    screenHeight: screen.height,
+    windowWidth: window.innerWidth,
+    windowHeight: window.innerHeight,
+    devicePixelRatio: window.devicePixelRatio,
+    isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
   });
 
-  // 1. Scroll-Driven Entry Animations (Intersection Observer)
+  // 1. Scroll-Driven Entry Animations (Intersection Observer) - Fixed for better compatibility
   const animElements = document.querySelectorAll('.animate-on-scroll');
   const scrollObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -22,34 +26,96 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }, {
-    threshold: 0.12,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.05, // Lower threshold for better mobile compatibility
+    rootMargin: '0px 0px -20px 0px' // Reduced margin
   });
+
+  // Make animations appear immediately if intersection observer fails
+  setTimeout(() => {
+    animElements.forEach(el => {
+      if (!el.classList.contains('appear')) {
+        el.classList.add('appear');
+      }
+    });
+  }, 1000); // Fallback after 1 second
 
   animElements.forEach(el => scrollObserver.observe(el));
 
-  // 2. Mobile Navigation Toggle
+  // 2. Mobile Navigation Toggle - Enhanced with debugging and touch support
   const menuToggle = document.getElementById('menu-toggle');
   const navLinks = document.getElementById('nav-links');
 
-  if (menuToggle && navLinks) {
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      const spans = menuToggle.querySelectorAll('span');
-      spans[0].style.transform = navLinks.classList.contains('active') ? 'rotate(45deg) translate(5px, 5px)' : 'none';
-      spans[1].style.opacity = navLinks.classList.contains('active') ? '0' : '1';
-      spans[2].style.transform = navLinks.classList.contains('active') ? 'rotate(-45deg) translate(5px, -5px)' : 'none';
-    });
+  console.log('[DEBUG] Menu elements found:', { 
+    menuToggle: !!menuToggle, 
+    navLinks: !!navLinks 
+  });
 
+  if (menuToggle && navLinks) {
+    // Handle both click and touchstart events for better mobile compatibility
+    const toggleMenu = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('[DEBUG] Menu toggle activated');
+      
+      navLinks.classList.toggle('active');
+      const isActive = navLinks.classList.contains('active');
+      console.log('[DEBUG] Menu active:', isActive);
+      
+      const spans = menuToggle.querySelectorAll('span');
+      if (spans.length >= 3) {
+        spans[0].style.transform = isActive ? 'rotate(45deg) translate(5px, 5px)' : 'none';
+        spans[1].style.opacity = isActive ? '0' : '1';
+        spans[2].style.transform = isActive ? 'rotate(-45deg) translate(5px, -5px)' : 'none';
+      }
+    };
+
+    menuToggle.addEventListener('click', toggleMenu);
+    menuToggle.addEventListener('touchstart', toggleMenu, { passive: false });
+
+    // Close menu when clicking nav links
     navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
+      const closeMenu = () => {
+        console.log('[DEBUG] Nav link clicked, closing menu');
         navLinks.classList.remove('active');
         const spans = menuToggle.querySelectorAll('span');
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
-      });
+        if (spans.length >= 3) {
+          spans[0].style.transform = 'none';
+          spans[1].style.opacity = '1';
+          spans[2].style.transform = 'none';
+        }
+      };
+      
+      link.addEventListener('click', closeMenu);
+      link.addEventListener('touchstart', closeMenu);
     });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+        navLinks.classList.remove('active');
+        const spans = menuToggle.querySelectorAll('span');
+        if (spans.length >= 3) {
+          spans[0].style.transform = 'none';
+          spans[1].style.opacity = '1';
+          spans[2].style.transform = 'none';
+        }
+      }
+    });
+    
+    // Also handle touchstart for mobile
+    document.addEventListener('touchstart', (e) => {
+      if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+        navLinks.classList.remove('active');
+        const spans = menuToggle.querySelectorAll('span');
+        if (spans.length >= 3) {
+          spans[0].style.transform = 'none';
+          spans[1].style.opacity = '1';
+          spans[2].style.transform = 'none';
+        }
+      }
+    });
+  } else {
+    console.error('[DEBUG] Menu elements not found!');
   }
 
   // 3. Before/After Comparison Slider (Why GreenConnectX)
@@ -414,52 +480,111 @@ document.addEventListener('DOMContentLoaded', () => {
   const waitlistSuccess = document.getElementById('waitlist-success');
 
   window.submitWaitlist = function(event) {
-    event.preventDefault();
-    const email = document.getElementById('waitlist-email').value;
+    console.log('[DEBUG] submitWaitlist called', event);
+    if (event) event.preventDefault();
+    
+    const emailInput = document.getElementById('waitlist-email');
+    if (!emailInput) {
+      console.error('[DEBUG] Email input not found');
+      alert('❌ Form error: Email field not found.');
+      return;
+    }
+    
+    const email = emailInput.value.trim();
+    console.log('[DEBUG] Waitlist email:', email);
 
     // Client-side validation
     if (!email || !email.includes('@') || email.length < 5) {
+      console.log('[DEBUG] Validation failed');
       alert('❌ Please enter a valid email address.');
+      emailInput.focus();
       return;
     }
 
+    // Show loading state
+    const submitBtn = waitlistForm ? waitlistForm.querySelector('button[type="submit"]') : null;
+    if (submitBtn) {
+      submitBtn.textContent = 'Joining...';
+      submitBtn.disabled = true;
+    }
+
+    console.log('[DEBUG] Sending waitlist request...');
+    
     fetch('/api/waitlist', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
       body: JSON.stringify({ email: email })
     })
     .then(async res => {
       const text = await res.text();
-      console.log('Server response:', text);
+      console.log('[DEBUG] Waitlist server response:', res.status, text);
       
       if (res.ok) {
-        waitlistForm.style.display = 'none';
-        waitlistSuccess.style.display = 'block';
+        if (waitlistForm && waitlistSuccess) {
+          waitlistForm.style.display = 'none';
+          waitlistSuccess.style.display = 'block';
+        }
+        console.log('[DEBUG] Waitlist success');
       } else {
         try {
           const data = JSON.parse(text);
           // Show specific error messages
-          if (data.error.includes('already registered')) {
+          if (data.error && data.error.includes('already registered')) {
             alert('✅ This email is already on our waitlist! You\'ll be notified when we launch.');
-          } else if (data.error.includes('valid email')) {
+            if (waitlistForm && waitlistSuccess) {
+              waitlistForm.style.display = 'none';
+              waitlistSuccess.style.display = 'block';
+            }
+          } else if (data.error && data.error.includes('valid email')) {
             alert('❌ Please enter a valid email address.');
-          } else if (data.error.includes('Database connection')) {
+          } else if (data.error && data.error.includes('Database connection')) {
             alert('⚠️ Server is temporarily unavailable. Please try again in a moment.');
           } else {
-            alert('❌ ' + data.error);
+            alert('❌ ' + (data.error || 'Unknown error occurred'));
           }
         } catch (e) {
           console.error('Server returned non-JSON:', text);
           alert('⚠️ Server error occurred. Please try again or check your internet connection.');
         }
       }
+      
+      // Reset button state
+      if (submitBtn) {
+        submitBtn.textContent = 'Join Waitlist';
+        submitBtn.disabled = false;
+      }
     })
     .catch(err => {
-      console.error('[API Error] Waitlist submit error:', err);
+      console.error('[DEBUG] Waitlist error:', err);
       alert('⚠️ Network error. Please check your internet connection and try again.');
+      
+      // Reset button state
+      if (submitBtn) {
+        submitBtn.textContent = 'Join Waitlist';
+        submitBtn.disabled = false;
+      }
     });
   };
-  };
+
+  // Add form submit event listeners as backup
+  const waitlistFormElement = document.getElementById('waitlist-form');
+  if (waitlistFormElement) {
+    waitlistFormElement.addEventListener('submit', (e) => {
+      console.log('[DEBUG] Waitlist form submit event caught');
+      window.submitWaitlist(e);
+    });
+  }
+  
+  const contactFormElement = document.getElementById('contact-form');
+  if (contactFormElement) {
+    contactFormElement.addEventListener('submit', (e) => {
+      console.log('[DEBUG] Contact form submit event caught');
+      window.submitContactForm(e);
+    });
+  }
 
   // 10. Interactive Footer Modals Controller
   window.openModal = function(modalId) {
@@ -489,70 +614,110 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 11. Contact Form Submit - Real API Integration
   window.submitContactForm = function(event) {
-    event.preventDefault();
-    const name = document.getElementById('contact-name').value;
-    const email = document.getElementById('contact-email').value;
-    const msg = document.getElementById('contact-msg').value;
+    console.log('[DEBUG] submitContactForm called', event);
+    if (event) event.preventDefault();
+    
+    const nameInput = document.getElementById('contact-name');
+    const emailInput = document.getElementById('contact-email');
+    const msgInput = document.getElementById('contact-msg');
+    
+    if (!nameInput || !emailInput || !msgInput) {
+      console.error('[DEBUG] Contact form inputs not found');
+      alert('❌ Form error: Required fields not found.');
+      return;
+    }
+    
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const msg = msgInput.value.trim();
+
+    console.log('[DEBUG] Contact form data:', { name, email, msgLength: msg.length });
 
     // Client-side validation with specific messages
-    if (!name || name.trim().length < 2) {
+    if (!name || name.length < 2) {
       alert('❌ Name must be at least 2 characters long.');
+      nameInput.focus();
       return;
     }
     
     if (!email || !email.includes('@')) {
       alert('❌ Please enter a valid email address.');
+      emailInput.focus();
       return;
     }
     
-    if (!msg || msg.trim().length < 10) {
+    if (!msg || msg.length < 10) {
       alert('❌ Message is too short. Please write at least 10 characters.');
+      msgInput.focus();
       return;
     }
 
     // Show loading state
     const submitBtn = document.querySelector('#contact-form button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Sending...';
-    submitBtn.disabled = true;
+    let originalText = 'Send Message';
+    if (submitBtn) {
+      originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+    }
+
+    console.log('[DEBUG] Sending contact form...');
 
     // Send to real API
     fetch('/api/contact', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
       body: JSON.stringify({ name: name, email: email, message: msg })
     })
     .then(async res => {
       const text = await res.text();
-      console.log('Contact server response:', text);
+      console.log('[DEBUG] Contact server response:', res.status, text);
       
       if (res.ok) {
         try {
           const data = JSON.parse(text);
+          console.log('[DEBUG] Contact success:', data);
+          
           // Hide contact form and show success
-          document.getElementById('contact-form').style.display = 'none';
-          document.getElementById('contact-success').style.display = 'block';
-          console.log('[Contact] Message sent successfully:', data);
+          const contactForm = document.getElementById('contact-form');
+          const contactSuccess = document.getElementById('contact-success');
+          
+          if (contactForm && contactSuccess) {
+            contactForm.style.display = 'none';
+            contactSuccess.style.display = 'block';
+          } else {
+            alert('✅ Message sent successfully! We will get back to you soon.');
+          }
         } catch (e) {
           console.error('Contact response was not JSON:', text);
           // Still show success if status is ok
-          document.getElementById('contact-form').style.display = 'none';
-          document.getElementById('contact-success').style.display = 'block';
+          const contactForm = document.getElementById('contact-form');
+          const contactSuccess = document.getElementById('contact-success');
+          
+          if (contactForm && contactSuccess) {
+            contactForm.style.display = 'none';
+            contactSuccess.style.display = 'block';
+          } else {
+            alert('✅ Message sent successfully! We will get back to you soon.');
+          }
         }
       } else {
         try {
           const data = JSON.parse(text);
           // Show specific server error message
-          if (data.error.includes('Name must be')) {
+          if (data.error && data.error.includes('Name must be')) {
             alert('❌ ' + data.error);
-          } else if (data.error.includes('email')) {
+          } else if (data.error && data.error.includes('email')) {
             alert('❌ ' + data.error);
-          } else if (data.error.includes('Message must be')) {
+          } else if (data.error && data.error.includes('Message must be')) {
             alert('❌ Message is too short. Please write at least 10 characters.');
-          } else if (data.error.includes('Database connection')) {
+          } else if (data.error && data.error.includes('Database connection')) {
             alert('⚠️ Server is temporarily unavailable. Please try again in a moment.');
           } else {
-            alert('❌ ' + data.error);
+            alert('❌ ' + (data.error || 'Unknown server error'));
           }
         } catch (e) {
           console.error('Server returned non-JSON error:', text);
@@ -561,16 +726,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       
       // Reset button state
-      submitBtn.textContent = originalText;
-      submitBtn.disabled = false;
+      if (submitBtn) {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
     })
     .catch(err => {
       console.error('[Contact API Error]', err);
       alert('⚠️ Network error. Please check your internet connection and try again.');
       
       // Reset button state on error
-      submitBtn.textContent = originalText;
-      submitBtn.disabled = false;
+      if (submitBtn) {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
     });
   };
 

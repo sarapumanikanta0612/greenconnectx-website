@@ -27,7 +27,20 @@ function initializeEmail() {
   }
 
   try {
-    transporter = nodemailer.createTransport(emailConfig);
+    // Use simpler Gmail configuration for better reliability
+    transporter = nodemailer.createTransporter({
+      service: 'gmail',
+      auth: {
+        user: process.env.GMAIL_USER || 'greenconnectx.team@gmail.com',
+        pass: process.env.GMAIL_APP_PASSWORD
+      },
+      pool: true,
+      maxConnections: 1,
+      maxMessages: 3,
+      rateDelta: 20000,
+      rateLimit: 5
+    });
+    
     console.log('[Email] Gmail transporter initialized successfully.');
     return true;
   } catch (error) {
@@ -58,13 +71,17 @@ async function sendContactNotification(contactData) {
   console.log('[Email] sendContactNotification called with:', { id: contactData.id, email: contactData.email });
   
   if (!transporter) {
-    console.log('[Email] Transporter not available, using webhook fallback.');
-    return await sendEmailViaWebhook({
-      to: 'greenconnectx.team@gmail.com',
-      from: process.env.GMAIL_USER,
-      subject: `🚀 New Contact Message from ${contactData.name} - GreenConnectX`,
-      html: 'Contact form submission received'
-    });
+    console.log('[Email] Transporter not available, reinitializing...');
+    const initialized = initializeEmail();
+    if (!initialized) {
+      console.log('[Email] Failed to initialize transporter, using webhook fallback.');
+      return await sendEmailViaWebhook({
+        to: 'greenconnectx.team@gmail.com',
+        from: process.env.GMAIL_USER,
+        subject: `🚀 New Contact Message from ${contactData.name} - GreenConnectX`,
+        html: 'Contact form submission received'
+      });
+    }
   }
 
   const { name, email, message, id } = contactData;
@@ -123,7 +140,7 @@ async function sendContactNotification(contactData) {
         </div>
       </div>
     `,
-    timeout: 15000 // 15 second timeout
+    timeout: 30000 // Increased to 30 second timeout
   };
 
   console.log('[Email] Attempting to send admin notification...');
@@ -133,7 +150,22 @@ async function sendContactNotification(contactData) {
     console.log(`[Email] Contact notification sent successfully for message ID: ${id}, messageId: ${result.messageId}`);
     return { success: true, message: 'Email notification sent', messageId: result.messageId };
   } catch (error) {
-    console.error('[Email] Failed to send contact notification:', error);
+    console.error('[Email] Failed to send contact notification:', error.message);
+    
+    // Try to reinitialize and retry once
+    if (error.message.includes('network') || error.message.includes('connection') || error.message.includes('timeout')) {
+      console.log('[Email] Network error detected, attempting retry...');
+      try {
+        initializeEmail();
+        await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds
+        const retryResult = await transporter.sendMail(mailOptions);
+        console.log(`[Email] Contact notification sent on retry for message ID: ${id}`);
+        return { success: true, message: 'Email notification sent (retry)', messageId: retryResult.messageId };
+      } catch (retryError) {
+        console.error('[Email] Retry also failed:', retryError.message);
+      }
+    }
+    
     return { success: false, message: error.message };
   }
 }
@@ -204,8 +236,12 @@ async function sendContactAutoResponse(contactData) {
 // Send waitlist signup notification to admin
 async function sendWaitlistNotification(email) {
   if (!transporter) {
-    console.log('[Email] Transporter not available, skipping waitlist notification.');
-    return { success: false, message: 'Email service not configured' };
+    console.log('[Email] Transporter not available, reinitializing...');
+    const initialized = initializeEmail();
+    if (!initialized) {
+      console.log('[Email] Failed to initialize transporter, skipping waitlist notification.');
+      return { success: false, message: 'Email service not configured' };
+    }
   }
 
   const mailOptions = {
@@ -244,15 +280,31 @@ async function sendWaitlistNotification(email) {
           <p>This email was sent automatically from your GreenConnectX waitlist signup form.</p>
         </div>
       </div>
-    `
+    `,
+    timeout: 30000 // 30 second timeout
   };
 
   try {
-    await transporter.sendMail(mailOptions);
+    const result = await transporter.sendMail(mailOptions);
     console.log(`[Email] Waitlist notification sent for: ${email}`);
     return { success: true, message: 'Waitlist notification sent' };
   } catch (error) {
     console.error('[Email] Failed to send waitlist notification:', error.message);
+    
+    // Try to reinitialize and retry once
+    if (error.message.includes('network') || error.message.includes('connection') || error.message.includes('timeout')) {
+      console.log('[Email] Network error detected, attempting retry...');
+      try {
+        initializeEmail();
+        await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds
+        const retryResult = await transporter.sendMail(mailOptions);
+        console.log(`[Email] Waitlist notification sent on retry for: ${email}`);
+        return { success: true, message: 'Waitlist notification sent (retry)' };
+      } catch (retryError) {
+        console.error('[Email] Retry also failed:', retryError.message);
+      }
+    }
+    
     return { success: false, message: error.message };
   }
 }
