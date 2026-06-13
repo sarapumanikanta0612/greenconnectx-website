@@ -28,7 +28,7 @@ function initializeEmail() {
 
   try {
     // Use simpler Gmail configuration for better reliability
-    transporter = nodemailer.createTransporter({
+    transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: process.env.GMAIL_USER || 'greenconnectx.team@gmail.com',
