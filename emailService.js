@@ -62,6 +62,7 @@ async function sendEmailViaWebhook(emailData) {
     message: 'SMTP not supported in serverless environment. Use Resend.com instead.' 
   };
 }
+
 // Send contact form notification to admin
 async function sendContactNotification(contactData) {
   console.log('[Email] sendContactNotification called with:', { id: contactData.id, email: contactData.email });
@@ -84,59 +85,19 @@ async function sendContactNotification(contactData) {
   
   console.log('[Email] Preparing admin notification email...');
   
+  // Test with a simpler email first
   const mailOptions = {
     from: process.env.GMAIL_USER || 'founder@greenconnectx.in',
     to: 'founder@greenconnectx.in',
     subject: `🚀 New Contact Message from ${name} - GreenConnectX`,
+    text: `New contact message from ${name} (${email}): ${message}`,
     html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8f9fa; padding: 20px;">
-        <div style="background: #0f172a; color: white; padding: 20px; border-radius: 8px 8px 0 0;">
-          <h2 style="color: #10b981; margin: 0;">📧 New Contact Message</h2>
-          <p style="margin: 5px 0 0 0; color: #94a3b8;">GreenConnectX Landing Page</p>
-        </div>
-        
-        <div style="background: white; padding: 25px; border-radius: 0 0 8px 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-          <h3 style="color: #0f172a; margin-top: 0;">Contact Details:</h3>
-          
-          <table style="width: 100%; border-collapse: collapse;">
-            <tr>
-              <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #374151;">Name:</td>
-              <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0; color: #0f172a;">${name}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #374151;">Email:</td>
-              <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0; color: #0f172a;">
-                <a href="mailto:${email}" style="color: #10b981; text-decoration: none;">${email}</a>
-              </td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0; font-weight: bold; color: #374151;">Message ID:</td>
-              <td style="padding: 8px 0; border-bottom: 1px solid #e2e8f0; color: #0f172a;">#${id}</td>
-            </tr>
-          </table>
-          
-          <h3 style="color: #0f172a; margin-top: 25px;">Message:</h3>
-          <div style="background: #f1f5f9; padding: 15px; border-radius: 6px; border-left: 4px solid #10b981;">
-            <p style="margin: 0; color: #0f172a; line-height: 1.6;">${message}</p>
-          </div>
-          
-          <div style="margin-top: 25px; padding: 15px; background: #ecfdf5; border-radius: 6px; border: 1px solid #10b981;">
-            <p style="margin: 0; color: #047857; font-weight: 500;">
-              💡 <strong>Quick Actions:</strong>
-            </p>
-            <p style="margin: 5px 0 0 0; color: #047857;">
-              • Reply directly to <a href="mailto:${email}" style="color: #10b981;">${email}</a><br>
-              • Check your database for more details (Contact ID: #${id})
-            </p>
-          </div>
-        </div>
-        
-        <div style="text-align: center; margin-top: 20px; color: #6b7280; font-size: 12px;">
-          <p>This email was sent automatically from your GreenConnectX landing page contact form.</p>
-        </div>
-      </div>
+      <h2>New Contact Message</h2>
+      <p><strong>From:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Message:</strong> ${message}</p>
     `,
-    timeout: 30000 // Increased to 30 second timeout
+    timeout: 30000 // Increased timeout
   };
 
   console.log('[Email] Attempting to send admin notification...');
