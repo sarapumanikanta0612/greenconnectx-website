@@ -1,38 +1,34 @@
 /* ==========================================================================
-   GreenConnectX - Email Service (Gmail Integration)
+   GreenConnectX - Email Service (GoDaddy Professional Email Integration)
    ========================================================================== */
 
 const nodemailer = require('nodemailer');
 
-// Email configuration
-const emailConfig = {
-  service: 'gmail',
-  auth: {
-    user: process.env.GMAIL_USER || 'greenconnectx.team@gmail.com',
-    pass: process.env.GMAIL_APP_PASSWORD
-  }
-};
-
 let transporter = null;
 
-// Initialize email transporter
+// Initialize email transporter for GoDaddy
 function initializeEmail() {
-  console.log('[Email] Initializing email service...');
-  console.log('[Email] Gmail user:', process.env.GMAIL_USER ? 'SET' : 'NOT_SET');
-  console.log('[Email] Gmail password length:', process.env.GMAIL_APP_PASSWORD ? process.env.GMAIL_APP_PASSWORD.length : 0);
+  console.log('[Email] Initializing GoDaddy email service...');
+  console.log('[Email] Email user:', process.env.GMAIL_USER ? 'SET' : 'NOT_SET');
+  console.log('[Email] Email password length:', process.env.GMAIL_APP_PASSWORD ? process.env.GMAIL_APP_PASSWORD.length : 0);
   
   if (!process.env.GMAIL_APP_PASSWORD) {
-    console.warn('[Email] Gmail App Password not configured. Email notifications disabled.');
+    console.warn('[Email] Email password not configured. Email notifications disabled.');
     return false;
   }
 
   try {
-    // Use simpler Gmail configuration for better reliability
+    // GoDaddy SMTP configuration
     transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtpout.secureserver.net',
+      port: 465,
+      secure: true, // SSL
       auth: {
-        user: process.env.GMAIL_USER || 'greenconnectx.team@gmail.com',
+        user: process.env.GMAIL_USER || 'founder@greenconnectx.in',
         pass: process.env.GMAIL_APP_PASSWORD
+      },
+      tls: {
+        rejectUnauthorized: false
       },
       pool: true,
       maxConnections: 1,
@@ -41,10 +37,10 @@ function initializeEmail() {
       rateLimit: 5
     });
     
-    console.log('[Email] Gmail transporter initialized successfully.');
+    console.log('[Email] GoDaddy SMTP transporter initialized successfully.');
     return true;
   } catch (error) {
-    console.error('[Email] Failed to initialize Gmail transporter:', error.message);
+    console.error('[Email] Failed to initialize GoDaddy transporter:', error.message);
     return false;
   }
 }
@@ -76,7 +72,7 @@ async function sendContactNotification(contactData) {
     if (!initialized) {
       console.log('[Email] Failed to initialize transporter, using webhook fallback.');
       return await sendEmailViaWebhook({
-        to: 'greenconnectx.team@gmail.com',
+        to: 'founder@greenconnectx.in',
         from: process.env.GMAIL_USER,
         subject: `🚀 New Contact Message from ${contactData.name} - GreenConnectX`,
         html: 'Contact form submission received'
@@ -89,8 +85,8 @@ async function sendContactNotification(contactData) {
   console.log('[Email] Preparing admin notification email...');
   
   const mailOptions = {
-    from: process.env.GMAIL_USER || 'greenconnectx.team@gmail.com',
-    to: 'greenconnectx.team@gmail.com',
+    from: process.env.GMAIL_USER || 'founder@greenconnectx.in',
+    to: 'founder@greenconnectx.in',
     subject: `🚀 New Contact Message from ${name} - GreenConnectX`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8f9fa; padding: 20px;">
@@ -179,7 +175,7 @@ async function sendContactAutoResponse(contactData) {
   const { name, email } = contactData;
   
   const mailOptions = {
-    from: process.env.GMAIL_USER || 'greenconnectx.team@gmail.com',
+    from: process.env.GMAIL_USER || 'founder@greenconnectx.in',
     to: email,
     subject: '✅ Thanks for contacting GreenConnectX - We received your message!',
     html: `
@@ -245,8 +241,8 @@ async function sendWaitlistNotification(email) {
   }
 
   const mailOptions = {
-    from: process.env.GMAIL_USER || 'greenconnectx.team@gmail.com',
-    to: 'greenconnectx.team@gmail.com',
+    from: process.env.GMAIL_USER || 'founder@greenconnectx.in',
+    to: 'founder@greenconnectx.in',
     subject: '🚀 New Waitlist Signup - GreenConnectX',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8f9fa; padding: 20px;">
@@ -316,7 +312,7 @@ async function sendWaitlistWelcome(email) {
   }
 
   const mailOptions = {
-    from: process.env.GMAIL_USER || 'greenconnectx.team@gmail.com',
+    from: process.env.GMAIL_USER || 'founder@greenconnectx.in',
     to: email,
     subject: '🌱 Welcome to the GreenConnectX Waitlist!',
     html: `
